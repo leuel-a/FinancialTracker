@@ -3,7 +3,7 @@
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
         <RootNamespace>ft.transaction_management.Application</RootNamespace>
-        <ImplicitUsings>enable</ImplicitUsings>
+        <ImplicitUsings>disable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
@@ -18,7 +18,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="DTOs\" />
+      <Folder Include="DTOs\Category\" />
     </ItemGroup>
 
 </Project>
