@@ -4,7 +4,7 @@ namespace ft.transaction_management.Domain.Common;
 
 public class BaseDomainEntity
 {
-    public string Id { get; set; }
-    public DateTime CreatedAt { get; set; }
-    public DateTime UpdatedAt { get; set; }
+    public Guid Id { get; set; }
+    public DateTime DateCreated { get; set; }
+    public DateTime LastModified { get; set; }
 }
