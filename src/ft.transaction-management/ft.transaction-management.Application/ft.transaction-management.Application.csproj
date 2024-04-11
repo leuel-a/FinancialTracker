@@ -18,9 +18,12 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Features\Category\" />
-      <Folder Include="Features\Employee\" />
-      <Folder Include="Features\Transaction\" />
+      <Folder Include="Features\Category\Handlers\" />
+      <Folder Include="Features\Category\Queries\" />
+      <Folder Include="Features\Employee\Handlers\" />
+      <Folder Include="Features\Employee\Queries\" />
+      <Folder Include="Features\Transaction\Handlers\" />
+      <Folder Include="Features\Transaction\Queries\" />
     </ItemGroup>
 
 </Project>
