@@ -18,7 +18,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="DTOs\Category\" />
+      <Folder Include="Features\Category\" />
+      <Folder Include="Features\Employee\" />
+      <Folder Include="Features\Transaction\" />
     </ItemGroup>
 
 </Project>
