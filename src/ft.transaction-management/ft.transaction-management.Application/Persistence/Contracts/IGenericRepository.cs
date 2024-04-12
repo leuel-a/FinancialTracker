@@ -4,12 +4,12 @@ using System.Collections.Generic;
 
 namespace ft.transaction_management.Application.Persistence.Contracts;
 
-public interface IGenericRepository
+public interface IGenericRepository<T> where T : class
 {
-    Task<T> GetAsync<T>(Guid id);
-    Task<List<T>> GetAllAsync<T>();
-    Task<T> AddAsync<T>(T entity);
-    Task UpdateAsync<T>(T entity);
-    Task DeleteAsync<T>(Guid id);
-    Task ExistsAsync<T>(Guid id);
+    Task<T> GetAsync(int id);
+    Task<IReadOnlyList<T>> GetAllAsync();
+    Task<T> AddAsync(T entity);
+    Task UpdateAsync(T entity);
+    Task DeleteAsync(T entity);
+    Task<bool> ExistsAsync(int id);
 }

@@ -22,8 +22,8 @@
       <Folder Include="Features\Category\Queries\" />
       <Folder Include="Features\Employee\Handlers\" />
       <Folder Include="Features\Employee\Queries\" />
-      <Folder Include="Features\Transaction\Handlers\" />
-      <Folder Include="Features\Transaction\Queries\" />
+      <Folder Include="Features\Transaction\Handlers\Commands\" />
+      <Folder Include="Features\Transaction\Requests\Commands\" />
     </ItemGroup>
 
 </Project>
