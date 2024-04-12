@@ -11,6 +11,9 @@ public class MappingProfile : Profile
         #region Transaction Dto Mappings
 
         CreateMap<Transaction, ReadTransactionDto>().ReverseMap();
+        CreateMap<Transaction, CreateTransactionDto>().ReverseMap();
+        CreateMap<Transaction, UpdateTransactionDto>().ReverseMap();
+        CreateMap<Transaction, DeleteTransactionDto>().ReverseMap(); // TODO: This might be an necessary mapping
 
         #endregion
     }

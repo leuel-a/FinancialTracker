@@ -1,17 +1,19 @@
 using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
-using ft.transaction_management.Application.DTOs.TransactionDto;
-using ft.transaction_management.Application.Features.Transaction.Requests.Queries;
-using ft.transaction_management.Application.Persistence.Contracts;
+
 using MediatR;
+using AutoMapper;
+
+using ft.transaction_management.Application.DTOs.TransactionDto;
+using ft.transaction_management.Application.Persistence.Contracts;
+using ft.transaction_management.Application.Features.Transaction.Requests.Queries;
 
 namespace ft.transaction_management.Application.Features.Transaction.Handlers.Queries;
 
 public class GetTransactionWithDetailsRequestHandler : IRequestHandler<GetTransactionWithDetailsRequest, ReadTransactionDto>
 {
-    private readonly ITransactionsRepository _transactionsRepository;
     private readonly IMapper _mapper;
+    private readonly ITransactionsRepository _transactionsRepository;
 
     public GetTransactionWithDetailsRequestHandler(ITransactionsRepository transactionsRepository, IMapper mapper)
     {
@@ -19,8 +21,12 @@ public class GetTransactionWithDetailsRequestHandler : IRequestHandler<GetTransa
         _mapper = mapper;
     }
     
-    public Task<ReadTransactionDto> Handle(GetTransactionWithDetailsRequest request, CancellationToken cancellationToken)
+    public async Task<ReadTransactionDto> Handle(GetTransactionWithDetailsRequest request, CancellationToken cancellationToken)
     {
-        throw new System.NotImplementedException();
+        var transaction = await _transactionsRepository.GetTransactionWithDetails(request.Id);
+    
+        // Use AutoMapper to map from the Transaction to the ReadTransactionDto
+        var readTransactionDto = _mapper.Map<ReadTransactionDto>(transaction);
+        return readTransactionDto;
     }
 }
