@@ -10,6 +10,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ft.transaction-management.D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ft.transaction-management.Application", "ft.transaction-management.Application\ft.transaction-management.Application.csproj", "{5D4A4240-7EAB-42CE-B398-C7AD66753708}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "infrastructure", "infrastructure", "{B8F23A72-6E54-455A-8769-805D073AF9E3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ft.transaction-management.Infrastructure", "ft.transaction-management.Infrastructure\ft.transaction-management.Infrastructure.csproj", "{2E78C71D-DF13-49A2-A49B-B949B760DC99}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ft.transaction-management.Persistence", "ft.transaction-management.Persistence\ft.transaction-management.Persistence.csproj", "{8673F968-AE19-4944-AE0D-D52BFB28B56C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "presentation", "presentation", "{6E78226B-D3CD-4305-B997-E28D0D615460}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ft.transaction-management.WebApi", "ft.transaction-management.WebApi\ft.transaction-management.WebApi.csproj", "{0C91052A-2F8A-4EA3-BC83-19F2C24E7D31}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +29,11 @@ Global
 		{BDAF4809-FB74-489C-A051-56071C06800C} = {04A5664E-5EE8-47E4-BCEB-94F66D8DBD7E}
 		{34C636C9-BD12-445C-9917-B02DDC482230} = {BDAF4809-FB74-489C-A051-56071C06800C}
 		{5D4A4240-7EAB-42CE-B398-C7AD66753708} = {BDAF4809-FB74-489C-A051-56071C06800C}
+		{B8F23A72-6E54-455A-8769-805D073AF9E3} = {04A5664E-5EE8-47E4-BCEB-94F66D8DBD7E}
+		{2E78C71D-DF13-49A2-A49B-B949B760DC99} = {B8F23A72-6E54-455A-8769-805D073AF9E3}
+		{8673F968-AE19-4944-AE0D-D52BFB28B56C} = {B8F23A72-6E54-455A-8769-805D073AF9E3}
+		{6E78226B-D3CD-4305-B997-E28D0D615460} = {04A5664E-5EE8-47E4-BCEB-94F66D8DBD7E}
+		{0C91052A-2F8A-4EA3-BC83-19F2C24E7D31} = {6E78226B-D3CD-4305-B997-E28D0D615460}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{34C636C9-BD12-445C-9917-B02DDC482230}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -29,5 +44,17 @@ Global
 		{5D4A4240-7EAB-42CE-B398-C7AD66753708}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D4A4240-7EAB-42CE-B398-C7AD66753708}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D4A4240-7EAB-42CE-B398-C7AD66753708}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E78C71D-DF13-49A2-A49B-B949B760DC99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E78C71D-DF13-49A2-A49B-B949B760DC99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E78C71D-DF13-49A2-A49B-B949B760DC99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E78C71D-DF13-49A2-A49B-B949B760DC99}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8673F968-AE19-4944-AE0D-D52BFB28B56C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8673F968-AE19-4944-AE0D-D52BFB28B56C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8673F968-AE19-4944-AE0D-D52BFB28B56C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8673F968-AE19-4944-AE0D-D52BFB28B56C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C91052A-2F8A-4EA3-BC83-19F2C24E7D31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C91052A-2F8A-4EA3-BC83-19F2C24E7D31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C91052A-2F8A-4EA3-BC83-19F2C24E7D31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C91052A-2F8A-4EA3-BC83-19F2C24E7D31}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

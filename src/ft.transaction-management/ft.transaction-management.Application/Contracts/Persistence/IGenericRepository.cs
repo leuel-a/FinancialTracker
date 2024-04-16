@@ -1,8 +1,8 @@
 using System;
-using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace ft.transaction_management.Application.Persistence.Contracts;
+namespace ft.transaction_management.Application.Contracts.Persistence;
 
 public interface IGenericRepository<T> where T : class
 {

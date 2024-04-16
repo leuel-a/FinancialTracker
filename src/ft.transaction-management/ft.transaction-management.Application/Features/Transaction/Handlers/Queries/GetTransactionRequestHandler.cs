@@ -1,9 +1,9 @@
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using ft.transaction_management.Application.Contracts.Persistence;
 using ft.transaction_management.Application.DTOs.TransactionDto;
 using ft.transaction_management.Application.Features.Transaction.Requests.Queries;
-using ft.transaction_management.Application.Persistence.Contracts;
 using MediatR;
 
 namespace ft.transaction_management.Application.Features.Transaction.Handlers.Queries;

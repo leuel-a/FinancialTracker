@@ -2,7 +2,7 @@ using System;
 
 namespace ft.transaction_management.Domain.Common;
 
-public class BaseDomainEntity
+public abstract class BaseDomainEntity
 {
     public Guid Id { get; set; }
     public DateTime DateCreated { get; set; }

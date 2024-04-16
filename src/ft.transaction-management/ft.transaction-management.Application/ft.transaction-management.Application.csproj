@@ -18,10 +18,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Features\Category\Handlers\" />
-      <Folder Include="Features\Category\Queries\" />
-      <Folder Include="Features\Employee\Handlers\" />
-      <Folder Include="Features\Employee\Queries\" />
+      <Folder Include="Features\Category\Handlers\Commands\" />
+      <Folder Include="Features\Category\Requests\Commands\" />
+      <Folder Include="Features\Employee\" />
     </ItemGroup>
 
 </Project>

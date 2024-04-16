@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 
 using MediatR;
 using AutoMapper;
+using ft.transaction_management.Application.Contracts.Persistence;
 using ft.transaction_management.Application.DTOs.TransactionDto;
-using ft.transaction_management.Application.Persistence.Contracts;
 using ft.transaction_management.Application.Features.Transaction.Requests.Commands;
 
 
@@ -12,8 +12,8 @@ namespace ft.transaction_management.Application.Features.Transaction.Handlers.Co
 
 public class CreateTransactionCommandHandler : IRequestHandler<CreateTransactionCommand, ReadTransactionDto>
 {
-    private readonly ITransactionsRepository _transactionsRepository;
     private readonly IMapper _mapper;
+    private readonly ITransactionsRepository _transactionsRepository;
 
     public CreateTransactionCommandHandler(ITransactionsRepository transactionsRepository, IMapper mapper)
     {
