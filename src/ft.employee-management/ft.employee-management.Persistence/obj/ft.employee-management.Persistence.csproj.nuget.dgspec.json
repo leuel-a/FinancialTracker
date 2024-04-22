@@ -1,0 +1,199 @@
+{
+  "format": 1,
+  "restore": {
+    "/home/leuel/projects/PortfolioProjects/FinancialTracker/src/ft.employee-management/ft.employee-management.Persistence/ft.employee-management.Persistence.csproj": {}
+  },
+  "projects": {
+    "/home/leuel/projects/PortfolioProjects/FinancialTracker/src/ft.employee-management/ft.employee-management.Application/ft.employee-management.Application.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/leuel/projects/PortfolioProjects/FinancialTracker/src/ft.employee-management/ft.employee-management.Application/ft.employee-management.Application.csproj",
+        "projectName": "ft.employee-management.Application",
+        "projectPath": "/home/leuel/projects/PortfolioProjects/FinancialTracker/src/ft.employee-management/ft.employee-management.Application/ft.employee-management.Application.csproj",
+        "packagesPath": "/home/leuel/.nuget/packages/",
+        "outputPath": "/home/leuel/projects/PortfolioProjects/FinancialTracker/src/ft.employee-management/ft.employee-management.Application/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/leuel/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/home/leuel/projects/PortfolioProjects/FinancialTracker/src/ft.employee-management/ft.employee-management.Domain/ft.employee-management.Domain.csproj": {
+                "projectPath": "/home/leuel/projects/PortfolioProjects/FinancialTracker/src/ft.employee-management/ft.employee-management.Domain/ft.employee-management.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[12.0.1, )"
+            },
+            "MediatR.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[11.1.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.103/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/leuel/projects/PortfolioProjects/FinancialTracker/src/ft.employee-management/ft.employee-management.Domain/ft.employee-management.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/leuel/projects/PortfolioProjects/FinancialTracker/src/ft.employee-management/ft.employee-management.Domain/ft.employee-management.Domain.csproj",
+        "projectName": "ft.employee-management.Domain",
+        "projectPath": "/home/leuel/projects/PortfolioProjects/FinancialTracker/src/ft.employee-management/ft.employee-management.Domain/ft.employee-management.Domain.csproj",
+        "packagesPath": "/home/leuel/.nuget/packages/",
+        "outputPath": "/home/leuel/projects/PortfolioProjects/FinancialTracker/src/ft.employee-management/ft.employee-management.Domain/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/leuel/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.103/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/leuel/projects/PortfolioProjects/FinancialTracker/src/ft.employee-management/ft.employee-management.Persistence/ft.employee-management.Persistence.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/leuel/projects/PortfolioProjects/FinancialTracker/src/ft.employee-management/ft.employee-management.Persistence/ft.employee-management.Persistence.csproj",
+        "projectName": "ft.employee-management.Persistence",
+        "projectPath": "/home/leuel/projects/PortfolioProjects/FinancialTracker/src/ft.employee-management/ft.employee-management.Persistence/ft.employee-management.Persistence.csproj",
+        "packagesPath": "/home/leuel/.nuget/packages/",
+        "outputPath": "/home/leuel/projects/PortfolioProjects/FinancialTracker/src/ft.employee-management/ft.employee-management.Persistence/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/leuel/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/home/leuel/projects/PortfolioProjects/FinancialTracker/src/ft.employee-management/ft.employee-management.Application/ft.employee-management.Application.csproj": {
+                "projectPath": "/home/leuel/projects/PortfolioProjects/FinancialTracker/src/ft.employee-management/ft.employee-management.Application/ft.employee-management.Application.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.0-preview.3.24172.4, )"
+            },
+            "Microsoft.Extensions.Options.ConfigurationExtensions": {
+              "target": "Package",
+              "version": "[9.0.0-preview.3.24172.9, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[9.0.0-preview.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.103/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

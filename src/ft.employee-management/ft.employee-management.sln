@@ -8,6 +8,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ft.employee-management.Doma
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ft.employee-management.Application", "ft.employee-management.Application\ft.employee-management.Application.csproj", "{E4A8D68B-FB2C-4D75-BB4D-36E4C7F67CA3}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "infrastructure", "infrastructure", "{89D09C7C-00A2-4001-996E-576AEE2C4A2C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ft.employee-management.Persistence", "ft.employee-management.Persistence\ft.employee-management.Persistence.csproj", "{AE15F785-94AF-40D4-8BDF-80A0BB2EA21E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,6 +21,8 @@ Global
 		{945ADCF2-ED09-4E8E-B91E-8E868C3F16E0} = {A4F3A2FA-08AD-4E83-AD8E-A9DDACB77875}
 		{E188D45C-818E-40ED-9FB3-334DE15B2316} = {945ADCF2-ED09-4E8E-B91E-8E868C3F16E0}
 		{E4A8D68B-FB2C-4D75-BB4D-36E4C7F67CA3} = {945ADCF2-ED09-4E8E-B91E-8E868C3F16E0}
+		{89D09C7C-00A2-4001-996E-576AEE2C4A2C} = {A4F3A2FA-08AD-4E83-AD8E-A9DDACB77875}
+		{AE15F785-94AF-40D4-8BDF-80A0BB2EA21E} = {89D09C7C-00A2-4001-996E-576AEE2C4A2C}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{E188D45C-818E-40ED-9FB3-334DE15B2316}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -27,5 +33,9 @@ Global
 		{E4A8D68B-FB2C-4D75-BB4D-36E4C7F67CA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E4A8D68B-FB2C-4D75-BB4D-36E4C7F67CA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E4A8D68B-FB2C-4D75-BB4D-36E4C7F67CA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE15F785-94AF-40D4-8BDF-80A0BB2EA21E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE15F785-94AF-40D4-8BDF-80A0BB2EA21E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE15F785-94AF-40D4-8BDF-80A0BB2EA21E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE15F785-94AF-40D4-8BDF-80A0BB2EA21E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
