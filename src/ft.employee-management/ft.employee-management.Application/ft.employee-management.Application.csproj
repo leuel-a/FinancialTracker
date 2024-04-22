@@ -8,11 +8,17 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Features\Employee\" />
+      <Folder Include="Features\Employee\Handlers\Commands\" />
+      <Folder Include="Features\Employee\Requests\Commands\" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\ft.employee-management.Domain\ft.employee-management.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+      <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.1.0" />
     </ItemGroup>
 
 </Project>

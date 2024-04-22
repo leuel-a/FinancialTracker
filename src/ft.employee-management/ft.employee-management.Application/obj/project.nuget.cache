@@ -1,8 +1,19 @@
 {
   "version": 2,
-  "dgSpecHash": "8dj2t+HMXujVgAQ+QR5V9mYLyeDuQdTGJxqDDmUwNHGk+V69paPsUomsNYymyVX71AFgD/v8zKe41aZkb9QEOA==",
+  "dgSpecHash": "+M+gy+ohhKL5IJi1wgGzz6ts5RDLjbLFkPNr2jNIHlMBVaeUgL4VdXILOxrll397VLKuu6o1KfKIg14mq+5e7A==",
   "success": true,
   "projectFilePath": "/home/leuel/projects/PortfolioProjects/FinancialTracker/src/ft.employee-management/ft.employee-management.Application/ft.employee-management.Application.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "/home/leuel/.nuget/packages/automapper/12.0.1/automapper.12.0.1.nupkg.sha512",
+    "/home/leuel/.nuget/packages/automapper.extensions.microsoft.dependencyinjection/12.0.1/automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
+    "/home/leuel/.nuget/packages/mediatr/11.0.0/mediatr.11.0.0.nupkg.sha512",
+    "/home/leuel/.nuget/packages/mediatr.contracts/1.0.1/mediatr.contracts.1.0.1.nupkg.sha512",
+    "/home/leuel/.nuget/packages/mediatr.extensions.microsoft.dependencyinjection/11.1.0/mediatr.extensions.microsoft.dependencyinjection.11.1.0.nupkg.sha512",
+    "/home/leuel/.nuget/packages/microsoft.csharp/4.7.0/microsoft.csharp.4.7.0.nupkg.sha512",
+    "/home/leuel/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/7.0.0/microsoft.extensions.dependencyinjection.abstractions.7.0.0.nupkg.sha512",
+    "/home/leuel/.nuget/packages/microsoft.extensions.options/6.0.0/microsoft.extensions.options.6.0.0.nupkg.sha512",
+    "/home/leuel/.nuget/packages/microsoft.extensions.primitives/6.0.0/microsoft.extensions.primitives.6.0.0.nupkg.sha512",
+    "/home/leuel/.nuget/packages/system.runtime.compilerservices.unsafe/6.0.0/system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
+  ],
   "logs": []
 }
