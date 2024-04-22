@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <RootNamespace>ft.employee_management.Application</RootNamespace>
+        <ImplicitUsings>disable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Folder Include="Features\Employee\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\ft.employee-management.Domain\ft.employee-management.Domain.csproj" />
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,89 @@
+{
+  "version": 3,
+  "targets": {
+    "net8.0": {
+      "ft.employee-management.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/ft.employee-management.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ft.employee-management.Domain.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "ft.employee-management.Domain/1.0.0": {
+      "type": "project",
+      "path": "../ft.employee-management.Domain/ft.employee-management.Domain.csproj",
+      "msbuildProject": "../ft.employee-management.Domain/ft.employee-management.Domain.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net8.0": [
+      "ft.employee-management.Domain >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "/home/leuel/.nuget/packages/": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "/home/leuel/projects/PortfolioProjects/FinancialTracker/src/ft.employee-management/ft.employee-management.Application/ft.employee-management.Application.csproj",
+      "projectName": "ft.employee-management.Application",
+      "projectPath": "/home/leuel/projects/PortfolioProjects/FinancialTracker/src/ft.employee-management/ft.employee-management.Application/ft.employee-management.Application.csproj",
+      "packagesPath": "/home/leuel/.nuget/packages/",
+      "outputPath": "/home/leuel/projects/PortfolioProjects/FinancialTracker/src/ft.employee-management/ft.employee-management.Application/obj/",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "/home/leuel/.nuget/NuGet/NuGet.Config"
+      ],
+      "originalTargetFrameworks": [
+        "net8.0"
+      ],
+      "sources": {
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "projectReferences": {
+            "/home/leuel/projects/PortfolioProjects/FinancialTracker/src/ft.employee-management/ft.employee-management.Domain/ft.employee-management.Domain.csproj": {
+              "projectPath": "/home/leuel/projects/PortfolioProjects/FinancialTracker/src/ft.employee-management/ft.employee-management.Domain/ft.employee-management.Domain.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "net8.0": {
+        "targetAlias": "net8.0",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.103/PortableRuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}

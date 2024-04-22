@@ -1,9 +1,9 @@
 using System;
 using ft.employee_management.Domain.Enums;
 
-namespace ft.employee_management.Domain.Entities;
+namespace ft.employee_management.Application.Dtos.EmployeeDto;
 
-public class Employee : BaseDomainEntity
+public class CreateEmployeeDto
 {
     public string? FirstName { get; set; }
     public string? LastName { get; set; }
