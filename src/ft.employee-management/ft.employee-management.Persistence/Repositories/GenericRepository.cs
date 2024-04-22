@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using ft.employee_management.Application.Contracts.Persistence;
 

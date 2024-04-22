@@ -1,0 +1,8 @@
+/home/leuel/projects/PortfolioProjects/FinancialTracker/src/ft.employee-management/ft.employee-management.WebApi/obj/Debug/net8.0/ft.employee-management.WebApi.csproj.AssemblyReference.cache
+/home/leuel/projects/PortfolioProjects/FinancialTracker/src/ft.employee-management/ft.employee-management.WebApi/obj/Debug/net8.0/ft.employee-management.WebApi.GeneratedMSBuildEditorConfig.editorconfig
+/home/leuel/projects/PortfolioProjects/FinancialTracker/src/ft.employee-management/ft.employee-management.WebApi/obj/Debug/net8.0/ft.employee-management.WebApi.AssemblyInfoInputs.cache
+/home/leuel/projects/PortfolioProjects/FinancialTracker/src/ft.employee-management/ft.employee-management.WebApi/obj/Debug/net8.0/ft.employee-management.WebApi.AssemblyInfo.cs
+/home/leuel/projects/PortfolioProjects/FinancialTracker/src/ft.employee-management/ft.employee-management.WebApi/obj/Debug/net8.0/ft.employee-management.WebApi.csproj.CoreCompileInputs.cache
+/home/leuel/projects/PortfolioProjects/FinancialTracker/src/ft.employee-management/ft.employee-management.WebApi/obj/Debug/net8.0/ft.employee-management.WebApi.MvcApplicationPartsAssemblyInfo.cs
+/home/leuel/projects/PortfolioProjects/FinancialTracker/src/ft.employee-management/ft.employee-management.WebApi/obj/Debug/net8.0/ft.employee-management.WebApi.MvcApplicationPartsAssemblyInfo.cache
+/home/leuel/projects/PortfolioProjects/FinancialTracker/src/ft.employee-management/ft.employee-management.WebApi/obj/Debug/net8.0/ft.employee-management.WebApi.sourcelink.json
