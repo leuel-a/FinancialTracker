@@ -1,0 +1,24 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A4F3A2FA-08AD-4E83-AD8E-A9DDACB77875}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "core", "core", "{945ADCF2-ED09-4E8E-B91E-8E868C3F16E0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ft.employee-management.Domain", "ft.employee-management.Domain\ft.employee-management.Domain.csproj", "{E188D45C-818E-40ED-9FB3-334DE15B2316}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{945ADCF2-ED09-4E8E-B91E-8E868C3F16E0} = {A4F3A2FA-08AD-4E83-AD8E-A9DDACB77875}
+		{E188D45C-818E-40ED-9FB3-334DE15B2316} = {945ADCF2-ED09-4E8E-B91E-8E868C3F16E0}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E188D45C-818E-40ED-9FB3-334DE15B2316}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E188D45C-818E-40ED-9FB3-334DE15B2316}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E188D45C-818E-40ED-9FB3-334DE15B2316}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E188D45C-818E-40ED-9FB3-334DE15B2316}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
