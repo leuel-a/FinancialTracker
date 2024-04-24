@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "0/bB0UMmmxImv3cv6mLR2K+oJRRCUUDdVwY0rxa7lG0=",
+  "Source": "ft.employee-management.WebApi",
+  "BasePath": "_content/ft.employee-management.WebApi",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

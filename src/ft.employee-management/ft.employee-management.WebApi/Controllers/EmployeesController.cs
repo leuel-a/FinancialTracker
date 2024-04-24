@@ -1,7 +1,10 @@
+using System;
 using MediatR;
 using System.Threading.Tasks;
-using ft.employee_management.Application.Features.Employee.Requests.Queries;
 using Microsoft.AspNetCore.Mvc;
+using ft.employee_management.Application.Dtos.EmployeeDto;
+using ft.employee_management.Application.Features.Employee.Requests.Queries;
+using ft.employee_management.Application.Features.Employee.Requests.Commands;
 
 namespace ft.employee_management.WebApi.Controllers;
 
@@ -10,6 +13,7 @@ namespace ft.employee_management.WebApi.Controllers;
 public class EmployeesController : ControllerBase
 {
     private readonly IMediator _mediator;
+
     public EmployeesController(IMediator mediator)
     {
         _mediator = mediator;
@@ -20,5 +24,18 @@ public class EmployeesController : ControllerBase
     {
         var employees = await _mediator.Send(new GetAllEmployeesRequest());
         return Ok(employees);
+    }
+
+    [HttpGet("{id:int}", Name = "GetEmployeeById")]
+    public Task<IActionResult> GetEmployeeById(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> CreateNewEmployee([FromBody] CreateEmployeeDto employee)
+    {
+        var result = await _mediator.Send(new CreateEmployeeRequest { EmployeeDto = employee });
+        return CreatedAtRoute("GetEmployeeById", new { id = result.Id }, result);
     }
 }
