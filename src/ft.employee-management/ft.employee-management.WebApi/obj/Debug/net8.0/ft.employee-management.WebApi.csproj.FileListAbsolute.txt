@@ -48,3 +48,4 @@
 /home/leuel/projects/PortfolioProjects/FinancialTracker/src/ft.employee-management/ft.employee-management.WebApi/obj/Debug/net8.0/ft.employee-management.WebApi.pdb
 /home/leuel/projects/PortfolioProjects/FinancialTracker/src/ft.employee-management/ft.employee-management.WebApi/obj/Debug/net8.0/ft.employee-management.WebApi.genruntimeconfig.cache
 /home/leuel/projects/PortfolioProjects/FinancialTracker/src/ft.employee-management/ft.employee-management.WebApi/obj/Debug/net8.0/ref/ft.employee-management.WebApi.dll
+/home/leuel/projects/PortfolioProjects/FinancialTracker/src/ft.employee-management/ft.employee-management.WebApi/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.InMemory.dll

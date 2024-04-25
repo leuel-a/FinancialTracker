@@ -15,12 +15,6 @@ builder.Services.AddSwaggerGen();
 builder.Services.ConfigureApplicationServices();
 builder.Services.ConfigurePersistenceServices(configuration);
 
-// Configure Serilog
-// builder.Host.ConfigureLogging(logging =>
-// {
-//
-// });
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
