@@ -8,7 +8,7 @@ using ft.employee_management.Application.Features.EmployeeType.Requests.Queries;
 
 namespace ft.employee_management.Application.Features.EmployeeType.Handlers.Queries;
 
-public class GetEmployeeTypeWithEmployeesRequestHandler : IRequestHandler<GetEmployeeTypeWithEmployeesRequest, ReadEmployeeTypeDto>
+public class GetEmployeeTypeWithEmployeesRequestHandler : IRequestHandler<GetEmployeeTypeWithEmployeesRequest, EmployeeTypeDto>
 {
     private readonly IEmployeeTypesRepository _employeeTypesRepository;
     private readonly IMapper _mapper;
@@ -19,9 +19,9 @@ public class GetEmployeeTypeWithEmployeesRequestHandler : IRequestHandler<GetEmp
         _employeeTypesRepository = employeeTypesRepository;
     }
     
-    public async Task<ReadEmployeeTypeDto> Handle(GetEmployeeTypeWithEmployeesRequest request, CancellationToken cancellationToken)
+    public async Task<EmployeeTypeDto> Handle(GetEmployeeTypeWithEmployeesRequest request, CancellationToken cancellationToken)
     {
         var employeeType = await _employeeTypesRepository.GetEmployeeTypeWithEmployees(request.Id);
-        return _mapper.Map<ReadEmployeeTypeDto>(employeeType);
+        return _mapper.Map<EmployeeTypeDto>(employeeType);
     }
 }

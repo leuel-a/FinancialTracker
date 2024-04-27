@@ -16,9 +16,4 @@
       <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.1.0" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Features\EmployeeType\Handlers\Commands\" />
-      <Folder Include="Features\EmployeeType\Requests\Commands\" />
-    </ItemGroup>
-
 </Project>

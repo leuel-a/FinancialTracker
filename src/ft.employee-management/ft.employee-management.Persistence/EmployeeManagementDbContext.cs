@@ -13,6 +13,7 @@ public class EmployeeManagementDbContext : DbContext
     }
 
     public DbSet<Employee> Employees { get; set; }
+    public DbSet<EmployeeType> EmployeeTypes { get; set; }
 
     public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = new CancellationToken())
     {

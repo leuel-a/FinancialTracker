@@ -8,7 +8,7 @@ using MediatR;
 
 namespace ft.employee_management.Application.Features.EmployeeType.Handlers.Queries;
 
-public class GetEmployeeTypeRequestHandler : IRequestHandler<GetEmployeeTypeRequest, ReadEmployeeTypeDto>
+public class GetEmployeeTypeRequestHandler : IRequestHandler<GetEmployeeTypeRequest, EmployeeTypeDto>
 {
     private readonly IEmployeeTypesRepository _employeeTypesRepository;
     private readonly IMapper _mapper;
@@ -19,9 +19,9 @@ public class GetEmployeeTypeRequestHandler : IRequestHandler<GetEmployeeTypeRequ
         _mapper = mapper;
     }
     
-    public async Task<ReadEmployeeTypeDto> Handle(GetEmployeeTypeRequest request, CancellationToken cancellationToken)
+    public async Task<EmployeeTypeDto> Handle(GetEmployeeTypeRequest request, CancellationToken cancellationToken)
     {
         var employeeType = await _employeeTypesRepository.GetByIdAsync(request.Id);
-        return _mapper.Map<ReadEmployeeTypeDto>(employeeType);
+        return _mapper.Map<EmployeeTypeDto>(employeeType);
     }
 }

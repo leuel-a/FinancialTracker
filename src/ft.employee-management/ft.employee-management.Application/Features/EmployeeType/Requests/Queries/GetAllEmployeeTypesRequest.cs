@@ -4,6 +4,6 @@ using MediatR;
 
 namespace ft.employee_management.Application.Features.EmployeeType.Requests.Queries;
 
-public class GetAllEmployeeTypesRequest : IRequest<List<ReadEmployeeTypeDto>>
+public class GetAllEmployeeTypesRequest : IRequest<List<EmployeeTypeDto>>
 {
 }

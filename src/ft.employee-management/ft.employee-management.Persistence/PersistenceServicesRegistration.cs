@@ -23,6 +23,7 @@ public static class PersistenceServicesRegistration
         });
 
         services.AddScoped<IEmployeesRepository, EmployeesRepository>();
+        services.AddScoped<IEmployeeTypesRepository, EmployeeTypesRepository>();
         return services;
     }
 }
