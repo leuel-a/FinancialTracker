@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using ft.employee_management.Application.Contracts.Persistence;
 using ft.employee_management.Domain.Entities;
 
@@ -7,5 +8,10 @@ public class EmployeesRepository : GenericRepository<Employee>, IEmployeesReposi
 {
     public EmployeesRepository(EmployeeManagementDbContext context) : base(context)
     {
+    }
+
+    public async Task<Employee> GetEmployeeDetails(int id)
+    {
+        throw new System.NotImplementedException();
     }
 }

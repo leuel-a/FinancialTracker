@@ -12,6 +12,8 @@ public class EmployeeManagementDbContext : DbContext
     {
     }
 
+    public DbSet<Employee> Employees { get; set; }
+
     public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = new CancellationToken())
     {
         foreach (var entry in ChangeTracker.Entries<BaseDomainEntity>())

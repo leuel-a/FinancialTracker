@@ -1,5 +1,5 @@
-using System.Reflection;
 using MediatR;
+using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ft.employee_management.Application;
@@ -10,7 +10,6 @@ public static class ApplicationServicesRegistration
     {
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
         services.AddMediatR(Assembly.GetExecutingAssembly());
-        
         return services;
     }
 }

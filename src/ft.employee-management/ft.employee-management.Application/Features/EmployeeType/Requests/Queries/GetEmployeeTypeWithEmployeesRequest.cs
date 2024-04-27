@@ -1,6 +1,9 @@
+using MediatR;
+using ft.employee_management.Application.Dtos.EmployeeTypeDto;
+
 namespace ft.employee_management.Application.Features.EmployeeType.Requests.Queries;
 
-public class GetEmployeeTypeWithEmployeesRequest : 
+public class GetEmployeeTypeWithEmployeesRequest : IRequest<ReadEmployeeTypeDto>
 {
-    
+    public int Id { get; set; }
 }

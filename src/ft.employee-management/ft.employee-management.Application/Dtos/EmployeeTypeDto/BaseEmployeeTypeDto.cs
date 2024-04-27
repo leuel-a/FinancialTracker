@@ -1,6 +1,6 @@
 namespace ft.employee_management.Application.Dtos.EmployeeTypeDto;
 
-public class BaseEmployeeTypeDto
+public abstract class BaseEmployeeTypeDto
 {
-    
+    public int Id { get; set; }
 }
