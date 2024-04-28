@@ -7,5 +7,5 @@ public class EmployeeTypeDto : BaseEmployeeTypeDto
 {
     public string? Name { get; set; }
     public string? Description { get; set; }
-    public ICollection<ReadEmployeeDto>? Employees { get; set; }
+    public ICollection<EmployeeDto.EmployeeDto>? Employees { get; set; }
 }

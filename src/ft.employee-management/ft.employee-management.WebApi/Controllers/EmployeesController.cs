@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using ft.employee_management.Application.Dtos.EmployeeDto;
 using ft.employee_management.Application.Features.Employee.Requests.Queries;
 using ft.employee_management.Application.Features.Employee.Requests.Commands;
-using ft.employee_management.Domain.Entities;
 
 namespace ft.employee_management.WebApi.Controllers;
 

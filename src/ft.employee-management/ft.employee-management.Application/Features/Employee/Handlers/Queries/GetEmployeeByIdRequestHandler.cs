@@ -8,7 +8,7 @@ using ft.employee_management.Application.Features.Employee.Requests.Queries;
 
 namespace ft.employee_management.Application.Features.Employee.Handlers.Queries;
 
-public class GetEmployeeByIdRequestHandler : IRequestHandler<GetEmployeeByIdRequest, ReadEmployeeDto>
+public class GetEmployeeByIdRequestHandler : IRequestHandler<GetEmployeeByIdRequest, EmployeeDto>
 {
     private readonly IMapper _mapper;
     private readonly IEmployeesRepository _employeesRepository;
@@ -19,9 +19,9 @@ public class GetEmployeeByIdRequestHandler : IRequestHandler<GetEmployeeByIdRequ
         _employeesRepository = employeesRepository;
     }
     
-    public async Task<ReadEmployeeDto> Handle(GetEmployeeByIdRequest request, CancellationToken cancellationToken)
+    public async Task<EmployeeDto> Handle(GetEmployeeByIdRequest request, CancellationToken cancellationToken)
     {
         var employee = await _employeesRepository.GetByIdAsync(request.Id);
-        return _mapper.Map<ReadEmployeeDto>(employee);
+        return _mapper.Map<EmployeeDto>(employee);
     }
 }

@@ -3,7 +3,7 @@ using ft.employee_management.Domain.Entities;
 
 namespace ft.employee_management.Application.Dtos.EmployeeDto;
 
-public class ReadEmployeeDetailsDto
+public class EmployeeDtoWithDetails
 {
     public string? FirstName { get; set; }
     public string? LastName { get; set; }

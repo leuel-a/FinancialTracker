@@ -10,7 +10,7 @@ public class MappingProfile : Profile
     public MappingProfile()
     {
         CreateMap<Employee, CreateEmployeeDto>().ReverseMap();
-        CreateMap<Employee, ReadEmployeeDto>().ReverseMap();
+        CreateMap<Employee, EmployeeDto>().ReverseMap();
 
         CreateMap<EmployeeType, EmployeeTypeDto>().ReverseMap();
         CreateMap<EmployeeType, CreateEmployeeTypeDto>().ReverseMap();
