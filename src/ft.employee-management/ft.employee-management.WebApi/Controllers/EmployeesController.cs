@@ -35,7 +35,7 @@ public class EmployeesController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateNewEmployee([FromBody] CreateEmployeeDto employee)
     {
-        var result = await _mediator.Send(new CreateEmployeeRequest { EmployeeDto = employee });
+        var result = await _mediator.Send(new CreateEmployeeCommand { EmployeeDto = employee });
         return CreatedAtRoute("GetEmployeeById", new { id = result.Id }, result);
     }
 }

@@ -20,10 +20,10 @@ public class UpdateEmployeeTypeCommandHandler : IRequestHandler<UpdateEmployeeTy
     
     public async Task<Unit> Handle(UpdateEmployeeTypeCommand request, CancellationToken cancellationToken)
     {
-        var employeeType = await _employeeTypesRepository.GetByIdAsync(request.UpdateCreateEmployeeTypeDto.Id);
+        var employeeType = await _employeeTypesRepository.GetByIdAsync(request.EmployeeTypeDto.Id);
         
         // Very powerful line of code as it will copy from the existing value to the old value with the AutoMapper
-        _mapper.Map(request.UpdateCreateEmployeeTypeDto, employeeType);
+        _mapper.Map(request.EmployeeTypeDto, employeeType);
         
         await _employeeTypesRepository.UpdateAsync(employeeType);
         return Unit.Value;

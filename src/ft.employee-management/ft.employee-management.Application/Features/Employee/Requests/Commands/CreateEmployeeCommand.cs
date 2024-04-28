@@ -3,7 +3,7 @@ using MediatR;
 
 namespace ft.employee_management.Application.Features.Employee.Requests.Commands;
 
-public class CreateEmployeeRequest : IRequest<ReadEmployeeDto>
+public class CreateEmployeeCommand : IRequest<ReadEmployeeDto>
 {
     public CreateEmployeeDto EmployeeDto { get; set; }
 }

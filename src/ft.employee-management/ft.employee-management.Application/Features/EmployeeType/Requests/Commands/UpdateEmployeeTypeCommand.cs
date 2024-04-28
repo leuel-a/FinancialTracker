@@ -5,5 +5,5 @@ namespace ft.employee_management.Application.Features.EmployeeType.Requests.Comm
 
 public class UpdateEmployeeTypeCommand : IRequest<Unit>
 {
-    public EmployeeTypeDto UpdateCreateEmployeeTypeDto { get; set; }
+    public EmployeeTypeDto EmployeeTypeDto { get; set; }
 }

@@ -8,20 +8,20 @@ using ft.employee_management.Application.Features.Employee.Requests.Commands;
 
 namespace ft.employee_management.Application.Features.Employee.Handlers.Commands;
 
-public class CreateEmployeeRequestHandler : IRequestHandler<CreateEmployeeRequest, ReadEmployeeDto>
+public class CreateEmployeeCommandHandler : IRequestHandler<CreateEmployeeCommand, ReadEmployeeDto>
 {
     private readonly IMapper _mapper;
     private readonly IEmployeesRepository _employeesRepository;
 
-    public CreateEmployeeRequestHandler(IEmployeesRepository employeesRepository, IMapper mapper)
+    public CreateEmployeeCommandHandler(IEmployeesRepository employeesRepository, IMapper mapper)
     {
         _mapper = mapper;
         _employeesRepository = employeesRepository;
     }
     
-    public async Task<ReadEmployeeDto> Handle(CreateEmployeeRequest request, CancellationToken cancellationToken)
+    public async Task<ReadEmployeeDto> Handle(CreateEmployeeCommand command, CancellationToken cancellationToken)
     {
-        var employee = _mapper.Map<Domain.Entities.Employee>(request.EmployeeDto);
+        var employee = _mapper.Map<Domain.Entities.Employee>(command.EmployeeDto);
         
         employee = await _employeesRepository.AddAsync(employee);
         return _mapper.Map<ReadEmployeeDto>(employee);
