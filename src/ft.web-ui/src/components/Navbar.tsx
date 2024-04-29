@@ -3,7 +3,7 @@ import { links, bottomLinks } from '@/data/dasboardLinks'
 
 export default function Navbar() {
   return (
-    <div className="flex h-screen w-64 flex-col justify-between bg-white py-8 pl-8">
+    <div className="flex h-screen w-80 flex-col justify-between bg-white py-8 pl-8 ">
       <div className="flex flex-col space-y-3">
         {links.map(link => {
           return <NavLink key={link.name} link={link} />

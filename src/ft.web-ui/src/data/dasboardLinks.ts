@@ -9,14 +9,14 @@ import { IoNewspaperOutline } from 'react-icons/io5'
 import { Link } from '@/types/link'
 
 export const links: Link[] = [
-  { name: 'Dashboard', Icon: RxDashboard, route: '/' },
-  { name: 'Analytics', Icon: SiSimpleanalytics, route: '/analytics' },
-  { name: 'Employees', Icon: FaPeopleGroup, route: '/employees' },
-  { name: 'Calendar', Icon: CiCalendarDate, route: '/calendar' },
-  { name: 'Reports', Icon: IoNewspaperOutline, route: '/reports' }
+  { name: 'Dashboard', Icon: RxDashboard},
+  { name: 'Analytics', Icon: SiSimpleanalytics },
+  { name: 'Employees', Icon: FaPeopleGroup },
+  { name: 'Calendar', Icon: CiCalendarDate },
+  { name: 'Reports', Icon: IoNewspaperOutline }
 ]
 
 export const bottomLinks: Link[] = [
-  { name: 'Settings', route: '/settings', Icon: IoSettingsOutline },
-  { name: 'Logout', route: '/logout', Icon: SlLogout }
+  { name: 'Settings', Icon: IoSettingsOutline },
+  { name: 'Logout', Icon: SlLogout }
 ]
