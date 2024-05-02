@@ -1,15 +1,7 @@
 'use client'
 
 import { ColumnDef } from '@tanstack/react-table'
-
-export type Employee = {
-  id: string
-  firstName: string
-  lastName: string
-  salary: number
-  type: string
-  email: string
-}
+import Employee from '@/types/employee'
 
   export const columns: ColumnDef<Employee>[] = [
   {

@@ -1,15 +1,10 @@
-import { columns, Employee } from './columns'
+import Link from 'next/link'
+
 import { Button } from '@/components/ui/button'
+
+import { columns } from './columns'
 import { DataTable } from './data-table'
-import {
-  Select,
-  SelectTrigger,
-  SelectGroup,
-  SelectValue,
-  SelectLabel,
-  SelectContent,
-  SelectItem
-} from '@/components/ui/select'
+import Employee from '@/types/employee'
 
 const employees: Employee[] = [
   {
@@ -94,7 +89,7 @@ const employees: Employee[] = [
   }
 ]
 
-const employeeTypes = Array.from(new Set(employees.map(employee => employee.type)))
+// const employeeTypes = Array.from(new Set(employees.map(employee => employee.type)))
 
 export default function Page() {
   const data = employees
@@ -115,7 +110,12 @@ export default function Page() {
       </div>
       <div className="flex flex-col space-y-10">
         <DataTable columns={columns} data={data}></DataTable>
-        <Button className="ml-auto w-72">Add Employee</Button>
+        {/* TODO: come up with a better solution than just wrapping the Link with a div */}
+        <div>
+          <Link href="/dashboard/employees/new">
+            <Button className="ml-auto w-72">Add Employee</Button>
+          </Link>
+        </div>
       </div>
     </main>
   )

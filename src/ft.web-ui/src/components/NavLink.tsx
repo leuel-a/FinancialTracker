@@ -10,7 +10,7 @@ export default function NavLink({ link: { name, Icon } }: Props) {
 
   return (
     <Link href={route}>
-      <div className="flex items-center gap-2 rounded-md py-3 pl-3 hover:bg-gray-200 hover:text-zinc-700">
+      <div className="flex items-center gap-2 rounded-md py-3 pl-3 hover:bg-gray-200 hover:text-zinc-900">
         <Icon className="text-lg" />
         <h3 className="text-md">{name}</h3>
       </div>
