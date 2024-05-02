@@ -8,13 +8,11 @@ interface Props {
 export default function NavLink({ link: { name, Icon } }: Props) {
   const route = name === 'Dashboard' ? '/dashboard' : `/dashboard/${name.toLowerCase()}`
 
-  console.log(route)
-
   return (
     <Link href={route}>
-      <div className="flex items-center gap-2 rounded-md py-3 pl-3 hover:bg-gray-200 hover:text-purple-600">
-        <Icon className="text-xl" />
-        <h3 className="text-lg">{name}</h3>
+      <div className="flex items-center gap-2 rounded-md py-3 pl-3 hover:bg-gray-200 hover:text-zinc-700">
+        <Icon className="text-lg" />
+        <h3 className="text-md">{name}</h3>
       </div>
     </Link>
   )
