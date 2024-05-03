@@ -3,13 +3,23 @@
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
         <Nullable>enable</Nullable>
-        <ImplicitUsings>enable</ImplicitUsings>
+        <ImplicitUsings>disable</ImplicitUsings>
         <RootNamespace>ft.user_management.WebApi</RootNamespace>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <NoWarn>${NoWarn};1591</NoWarn>
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="MediatR" Version="11.1.0" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.3"/>
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\ft.user-management.Application\ft.user-management.Application.csproj" />
+      <ProjectReference Include="..\ft.user-management.Domain\ft.user-management.Domain.csproj" />
+      <ProjectReference Include="..\ft.user-management.Infrastructure\ft.user-management.Infrastructure.csproj" />
+      <ProjectReference Include="..\ft.user-management.Persistence\ft.user-management.Persistence.csproj" />
     </ItemGroup>
 
 </Project>

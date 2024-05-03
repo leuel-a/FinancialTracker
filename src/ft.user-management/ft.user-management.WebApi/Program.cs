@@ -1,44 +1,67 @@
+using System;
+using System.IO;
+using System.Reflection;
+using Microsoft.OpenApi.Models; 
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Hosting;
+using ft.user_management.Persistence;
+using ft.user_management.Application;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using ft.user_management.Infrastructure.Data.Settings;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+var info = new OpenApiInfo()
+{
+    Title = "User Management API Documentation",
+    Version = "v1",
+    Description =
+        "The User Administration API for our financial monitoring application" +
+        " improves user management by simplifying registration, authentication," +
+        " and profile management. It provides secure access and strong financial" +
+        "data protection, making it perfect for applications of all sizes." +
+        "\n This API enables easy management of user data while complying to strict" +
+        " data protection standards, so enabling both growth and compliance requirements.",
+    Contact = new OpenApiContact()
+    {
+        Name = "Leuel Asfaw",
+        Email = "leuela1993@gmail.com"
+    }
+};
+
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", info);
+
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    c.IncludeXmlComments(xmlPath);
+});
+
+var mongoDbSettings = builder.Configuration.GetSection("MongoDbSettings").Get<MongoDbSettings>();
+
+builder.Services.ConfigureApplicationServices();
+builder.Services.ConfigurePersistenceServices(mongoDbSettings);
+
+builder.Services.AddControllers();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwagger(u => { u.RouteTemplate = "swagger/{documentName}/swagger.json"; });
+    app.UseSwaggerUI(c =>
+    {
+        c.RoutePrefix = "swagger";
+        c.SwaggerEndpoint(url: "/swagger/v1/swagger.json", name: "User Management API Documentation");
+    });
 }
 
 app.UseHttpsRedirection();
-
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-    {
-        var forecast = Enumerable.Range(1, 5).Select(index =>
-                new WeatherForecast
-                (
-                    DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                    Random.Shared.Next(-20, 55),
-                    summaries[Random.Shared.Next(summaries.Length)]
-                ))
-            .ToArray();
-        return forecast;
-    })
-    .WithName("GetWeatherForecast")
-    .WithOpenApi();
+app.MapControllers();
 
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
