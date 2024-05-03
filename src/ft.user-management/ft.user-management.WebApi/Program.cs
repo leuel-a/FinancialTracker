@@ -6,11 +6,10 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Hosting;
 using ft.user_management.Persistence;
 using ft.user_management.Application;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using ft.user_management.Infrastructure.Data.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
+var configuration = builder.Configuration;
 
 builder.Services.AddEndpointsApiExplorer();
 
@@ -41,10 +40,8 @@ builder.Services.AddSwaggerGen(c =>
     c.IncludeXmlComments(xmlPath);
 });
 
-var mongoDbSettings = builder.Configuration.GetSection("MongoDbSettings").Get<MongoDbSettings>();
-
 builder.Services.ConfigureApplicationServices();
-builder.Services.ConfigurePersistenceServices(mongoDbSettings);
+builder.Services.ConfigurePersistenceServices(configuration);
 
 builder.Services.AddControllers();
 
@@ -58,7 +55,7 @@ if (app.Environment.IsDevelopment())
     {
         c.RoutePrefix = "swagger";
         c.SwaggerEndpoint(url: "/swagger/v1/swagger.json", name: "User Management API Documentation");
-    });
+    }); 
 }
 
 app.UseHttpsRedirection();
