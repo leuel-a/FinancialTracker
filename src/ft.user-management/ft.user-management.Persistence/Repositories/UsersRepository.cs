@@ -4,11 +4,16 @@ using ft.user_management.Application.Contracts.Persistence;
 
 namespace ft.user_management.Persistence.Repositories;
 
-public class UsersRepository(UserManagementDbContext dbContext) : GenericRepository<User>(dbContext), IUsersRepository
+public class UsersRepository: GenericRepository<User>, IUsersRepository
 {
+    private readonly UserManagementDbContext _dbContext;
+    public UsersRepository(UserManagementDbContext dbContext): base(dbContext)
+    {
+        _dbContext = dbContext;
+    }
     public async Task<User?> GetUserByEmail(string email)
     {
-        return await dbContext.Users.FirstOrDefaultAsync(u => u.Email == email);
+        return await _dbContext.Users.FirstOrDefaultAsync(u => u.Email == email);
     }
 
     public async Task<bool> IsUserExists(string email)
