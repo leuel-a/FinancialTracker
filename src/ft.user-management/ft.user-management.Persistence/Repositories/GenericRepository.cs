@@ -3,7 +3,7 @@ using ft.user_management.Application.Contracts.Persistence;
 
 namespace ft.user_management.Persistence.Repositories;
 
-public class GenericRepository<T>(DbContext dbContext) : IGenericRepository<T>
+public class GenericRepository<T>(UserManagementDbContext dbContext) : IGenericRepository<T>
     where T : class
 {
     public async Task<T?> GetByIdAsync(int id)
@@ -24,10 +24,11 @@ public class GenericRepository<T>(DbContext dbContext) : IGenericRepository<T>
         return entity;
     }
 
-    public async Task UpdateAsync(T entity)
+    public async Task<T> UpdateAsync(T entity)
     {
         dbContext.Entry(entity).State = EntityState.Modified;
         await dbContext.SaveChangesAsync();
+        return entity;
     }
 
     public async Task DeleteAsync(T entity)

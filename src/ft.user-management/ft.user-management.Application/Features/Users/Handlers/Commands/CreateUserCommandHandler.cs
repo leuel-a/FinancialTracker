@@ -1,11 +1,11 @@
-using MediatR;
-using AutoMapper;
 using System.Threading;
 using System.Threading.Tasks;
-using ft.user_management.Domain.Entities;
-using ft.user_management.Application.Dtos.Users;
+using AutoMapper;
 using ft.user_management.Application.Contracts.Persistence;
+using ft.user_management.Application.Dtos.Users;
 using ft.user_management.Application.Features.Users.Requests.Commands;
+using ft.user_management.Domain.Entities;
+using MediatR;
 
 namespace ft.user_management.Application.Features.Users.Handlers.Commands;
 

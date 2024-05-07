@@ -1,17 +1,24 @@
 using System;
 using System.IO;
+using System.Text;
 using System.Reflection;
-using Microsoft.OpenApi.Models; 
+using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using ft.user_management.Persistence;
 using ft.user_management.Application;
+using ft.user_management.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddControllers();
+
+#region Controller Documentation Setup Swagger
 
 var info = new OpenApiInfo()
 {
@@ -40,10 +47,33 @@ builder.Services.AddSwaggerGen(c =>
     c.IncludeXmlComments(xmlPath);
 });
 
+#endregion
+
+#region Register Services
+
 builder.Services.ConfigureApplicationServices();
+builder.Services.ConfigureInfrastructureServices();
 builder.Services.ConfigurePersistenceServices(configuration);
 
-builder.Services.AddControllers();
+#endregion
+
+#region Add Jwt Authentication Details
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = configuration["Jwt:Issuer"],
+        ValidAudience = configuration["Jwt:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]!))
+    };
+});
+
+#endregion
 
 var app = builder.Build();
 
@@ -55,7 +85,7 @@ if (app.Environment.IsDevelopment())
     {
         c.RoutePrefix = "swagger";
         c.SwaggerEndpoint(url: "/swagger/v1/swagger.json", name: "User Management API Documentation");
-    }); 
+    });
 }
 
 app.UseHttpsRedirection();

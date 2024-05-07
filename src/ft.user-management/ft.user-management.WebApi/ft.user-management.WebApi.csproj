@@ -11,15 +11,17 @@
 
     <ItemGroup>
         <PackageReference Include="MediatR" Version="11.1.0" />
-        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.3"/>
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.4" />
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.3" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+        <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.5.1" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\ft.user-management.Application\ft.user-management.Application.csproj" />
-      <ProjectReference Include="..\ft.user-management.Domain\ft.user-management.Domain.csproj" />
-      <ProjectReference Include="..\ft.user-management.Infrastructure\ft.user-management.Infrastructure.csproj" />
-      <ProjectReference Include="..\ft.user-management.Persistence\ft.user-management.Persistence.csproj" />
+        <ProjectReference Include="..\ft.user-management.Domain\ft.user-management.Domain.csproj" />
+        <ProjectReference Include="..\ft.user-management.Persistence\ft.user-management.Persistence.csproj" />
+        <ProjectReference Include="..\ft.user-management.Application\ft.user-management.Application.csproj" />
+        <ProjectReference Include="..\ft.user-management.Infrastructure\ft.user-management.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>

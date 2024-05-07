@@ -13,10 +13,9 @@ public static class PersistenceServicesRegistration
         services.AddDbContext<UserManagementDbContext>(opts =>
         {
             opts.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
-            // opts.UseInMemoryDatabase("InMemoryFtUserManagementDatabase");
-            // opts.UseMongoDB(mongoDbSettings!.ConnectionString, mongoDbSettings.DatabaseName);
         });
-
+        
+        services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
         services.AddScoped<IUsersRepository, UsersRepository>();
         return services;
     }

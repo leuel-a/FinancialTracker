@@ -17,4 +17,13 @@
       <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.1.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Features\Auth\Handlers\Commands\" />
+      <Folder Include="Features\Auth\Requests\Commands\" />
+      <Folder Include="Features\Role\Handlers\Commands\" />
+      <Folder Include="Features\Role\Handlers\Queries\" />
+      <Folder Include="Features\Role\Requests\Commands\" />
+      <Folder Include="Features\Role\Requests\Queries\" />
+    </ItemGroup>
+
 </Project>
