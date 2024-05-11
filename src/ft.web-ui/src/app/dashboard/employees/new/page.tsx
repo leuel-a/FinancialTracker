@@ -1,18 +1,22 @@
-import NewEmployeeForm from '@/components/NewEmployeeForm'
-import { IoMdArrowBack } from 'react-icons/io'
+import PageTitle from '../../components/PageTitle'
+import { Undo2 } from 'lucide-react'
+import Link from 'next/link'
+import NewEmployeeForm from './components/NewEmployeesForm'
 
 export default function Page() {
   return (
-    <div className="mt-8 w-full">
-      <div className="flex items-center gap-10">
-        <div className="rounded-full bg-zinc-600 p-1 hover:bg-zinc-700">
-          <IoMdArrowBack className="my-auto block text-xl text-white" />
-        </div>
-        <h1 className="text-2xl font-semibold text-zinc-700">Add Employee</h1>
+    <div className="flex w-full flex-col gap-5">
+      <div className="flex justify-between">
+        <PageTitle title="Add Employee" />
+        <Link
+          href="/dashboard/employees"
+          className="flex cursor-pointer items-center gap-2 rounded-lg border border-black px-4 py-2 hover:border hover:shadow-md"
+        >
+          <Undo2 />
+          <p>Back to Employees</p>
+        </Link>
       </div>
-      <div className='mt-10 px-10 m-auto'>
-        <NewEmployeeForm />
-      </div>
+      <NewEmployeeForm />
     </div>
   )
 }

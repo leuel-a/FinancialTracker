@@ -1,15 +1,16 @@
 import React from 'react'
-import Navbar from '../../components/Navbar'
+import SideNavbar from './components/SideNavBar'
+import { cn } from '@/lib/utils'
 
-interface Props {
+interface DashboardLayoutProps {
   children: React.ReactNode
 }
 
-export default function DashboardLayout({ children }: Props) {
+export default function DashboardLayout({ children }: DashboardLayoutProps) {
   return (
-    <div className="flex">
-      <Navbar />
-      {children}
+    <div className={cn('flex min-h-screen w-full bg-white text-black')}>
+      <SideNavbar /> 
+      <div className="w-full p-10 pt-8">{children}</div>
     </div>
   )
 }

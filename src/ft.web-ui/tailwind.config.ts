@@ -19,7 +19,8 @@ const config = {
     },
     extend: {
       fontFamily: {
-        poppins: 'Poppins, sans-serif'
+        poppins: 'Poppins, sans-serif',
+        inter: 'Inter, sans-serif'
       },
       colors: {
         border: 'hsl(var(--border))',
@@ -77,7 +78,7 @@ const config = {
       }
     }
   },
-  plugins: [require('tailwindcss-animate')]
+  plugins: [require('tailwindcss-animate'), require('tailwindcss-debug-screens')]
 } satisfies Config
 
 export default config
