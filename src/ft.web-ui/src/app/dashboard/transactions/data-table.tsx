@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import {
   Table,
   TableBody,
@@ -10,32 +11,49 @@ import {
 } from '@/components/ui/table'
 import { format } from 'date-fns'
 import {
+  ColumnFiltersState,
+  VisibilityState,
   ColumnDef,
   flexRender,
   getCoreRowModel,
   getPaginationRowModel,
-  useReactTable
+  getFilteredRowModel,
+  useReactTable,
+  SortingState,
+  getSortedRowModel
 } from '@tanstack/react-table'
 import { Transaction } from '@/types/transaction'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
+  DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
-import { MoreHorizontal } from 'lucide-react'
+import { ArrowUpDown, MoreHorizontal } from 'lucide-react'
 
 export const columns: ColumnDef<Transaction>[] = [
   {
     accessorKey: 'status',
-    header: 'Status'
+    header: "Status"
   },
   {
     accessorKey: 'transactionDate',
-    header: 'Date',
+    header: ({ column }) => {
+      return (
+        <Button
+          variant={'ghost'}
+          className="p-0"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          <span className="inline-block">Date</span>
+          <ArrowUpDown className=" ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
     cell: ({ row }) => {
       const date = row.getValue('transactionDate') as string
       const formattedDate = format(date, 'EEEEEEEE, MMMM d, yyyy')
@@ -108,15 +126,51 @@ interface DataTableProps<TData, TValue> {
 }
 
 export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
+  const [sorting, setSorting] = useState<SortingState>([])
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
+
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel()
+    getPaginationRowModel: getPaginationRowModel(),
+    onSortingChange: setSorting,
+    getSortedRowModel: getSortedRowModel(),
+    onColumnVisibilityChange: setColumnVisibility,
+    onColumnFiltersChange: setColumnFilters,
+    getFilteredRowModel: getFilteredRowModel(),
+    state: { sorting, columnVisibility, columnFilters: columnFilters }
   })
 
   return (
     <div>
+      <div className="flex items-center py-4">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline" className="ml-auto">
+              Control Columns
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            {table
+              .getAllColumns()
+              .filter(column => column.getCanHide())
+              .map(column => {
+                return (
+                  <DropdownMenuCheckboxItem
+                    key={column.id}
+                    className="capitalize"
+                    checked={column.getIsVisible()}
+                    onCheckedChange={value => column.toggleVisibility(!!value)}
+                  >
+                    {column.id}
+                  </DropdownMenuCheckboxItem>
+                )
+              })}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
       <div className="rounded-md border">
         <Table>
           <TableHeader>
