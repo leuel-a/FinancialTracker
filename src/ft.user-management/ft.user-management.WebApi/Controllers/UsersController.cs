@@ -37,7 +37,7 @@ public class UsersController(ISender mediator) : ControllerBase
     }
 
     /// <summary>
-    /// Creates a new user with the provided user data.
+        /// Creates a new user with the provided user data.
     /// </summary>
     /// <param name="userDto">The user data transfer object containing information for the new user</param>
     /// <returns>Returns the created user and a URI to the newly created user in the Location header</returns>
