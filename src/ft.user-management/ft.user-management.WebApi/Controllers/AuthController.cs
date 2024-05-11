@@ -28,6 +28,11 @@ public class AuthController : ControllerBase
     public async Task<IActionResult> Login([FromBody] AuthenticateUserDto loginDto)
     {
         var response = await _mediator.Send(new AuthenticateUserRequest() { AuthenticateUserDto = loginDto });
-        return Ok(new { Token = response.Token, Email = loginDto.Email });
+        if (response.Success == false)
+        {
+            return BadRequest(new { response.Message, response.Errors });
+        }
+
+        return Ok(new { AccessToken = response.AccessToken, RefreshToken = response.RefreshToken });
     }
 }

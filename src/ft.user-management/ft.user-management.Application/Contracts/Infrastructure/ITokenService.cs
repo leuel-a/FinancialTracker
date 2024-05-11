@@ -4,5 +4,6 @@ namespace ft.user_management.Application.Contracts.Infrastructure;
 
 public interface ITokenService
 {
-    public string GenerateToken(User user);
+    public string GenerateAccessToken(User user);
+    public string GenerateRefreshToken(User user);
 }

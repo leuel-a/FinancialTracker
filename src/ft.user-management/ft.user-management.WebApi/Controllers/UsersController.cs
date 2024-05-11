@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using ft.user_management.Application.Dtos.Users;
 using ft.user_management.Application.Features.Users.Requests.Queries;
 using ft.user_management.Application.Features.Users.Requests.Commands;
+using ft.user_management.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ft.user_management.WebApi.Controllers;
 
@@ -29,6 +31,7 @@ public class UsersController(ISender mediator) : ControllerBase
     /// </summary>
     /// <returns>Returns a list of all registered users</returns>
     /// <response code="200">If the list of users is returned successfully</response>
+    [Authorize(Roles = "Admin")]
     [HttpGet]
     public async Task<IActionResult> GetAllUsers()
     {
@@ -45,8 +48,8 @@ public class UsersController(ISender mediator) : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateUser([FromBody] CreateUserDto userDto)
     {
-        var user = await mediator.Send(new CreateUserCommand() { UserDto = userDto });
-        return CreatedAtRoute("GetUserById", new { Id = user.Id }, user);
+        var response = await mediator.Send(new CreateUserCommand() { UserDto = userDto });
+        return CreatedAtRoute("GetUserById", new { Id = response.Id }, response.Resource);
     }
 
     /// <summary>

@@ -1,6 +1,5 @@
 using AutoMapper;
 using ft.user_management.Domain.Entities;
-using ft.user_management.Application.Dtos.Role;
 using ft.user_management.Application.Dtos.Users;
 
 namespace ft.user_management.Application.Profiles;
@@ -11,8 +10,5 @@ public class MappingProfile : Profile
     {
         CreateMap<User, UserDto>().ReverseMap();
         CreateMap<User, CreateUserDto>().ReverseMap();
-
-        CreateMap<Role, RoleDto>().ReverseMap();
-        CreateMap<Role, CreateRoleDto>().ReverseMap();
     }
 }

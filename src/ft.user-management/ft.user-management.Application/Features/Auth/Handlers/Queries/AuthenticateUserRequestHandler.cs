@@ -1,12 +1,12 @@
 using MediatR;
-using System.Linq;
 using AutoMapper;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using ft.user_management.Application.Contracts.Infrastructure;
 using ft.user_management.Application.Responses;
 using ft.user_management.Application.Contracts.Persistence;
 using ft.user_management.Application.Dtos.Users.Validators;
+using ft.user_management.Application.Contracts.Infrastructure;
 using ft.user_management.Application.Features.Auth.Requests.Queries;
 
 namespace ft.user_management.Application.Features.Auth.Handlers.Queries;
@@ -40,12 +40,20 @@ public class AuthenticateUserRequestHandler : IRequestHandler<AuthenticateUserRe
         }
         
         var user = await _usersRepository.GetUserByEmail(request.AuthenticateUserDto.Email!);
-        var token = _tokenService.GenerateToken(user!);
+        if (user == null)
+        {
+            response.Success = false;
+            response.Message = "Login unsuccessful, user not found";
+            return response;
+        }
+        
+        var accessToken = _tokenService.GenerateAccessToken(user!);
+        var refreshToken = _tokenService.GenerateRefreshToken(user!);
 
         response.Success = true;
         response.Message = "Login successful, token generated";
-        response.Token = token;
-        
+        response.AccessToken = accessToken;
+        response.RefreshToken = refreshToken;
         return response;
     }
 }
