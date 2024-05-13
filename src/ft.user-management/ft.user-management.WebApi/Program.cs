@@ -9,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using ft.user_management.Persistence;
 using ft.user_management.Application;
 using ft.user_management.Infrastructure;
+using ft.user_management.WebApi.Middlewares;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 
@@ -20,32 +21,32 @@ builder.Services.AddControllers();
 
 #region Controller Documentation Setup Swagger
 
-var info = new OpenApiInfo()
-{
-    Title = "User Management API Documentation",
-    Version = "v1",
-    Description =
-        "The User Administration API for our financial monitoring application" +
-        " improves user management by simplifying registration, authentication," +
-        " and profile management. It provides secure access and strong financial" +
-        "data protection, making it perfect for applications of all sizes." +
-        "\n This API enables easy management of user data while complying to strict" +
-        " data protection standards, so enabling both growth and compliance requirements.",
-    Contact = new OpenApiContact()
-    {
-        Name = "Leuel Asfaw",
-        Email = "leuela1993@gmail.com"
-    }
-};
-
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", info);
-
-    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-    c.IncludeXmlComments(xmlPath);
-});
+// var info = new OpenApiInfo()
+// {
+//     Title = "User Management API Documentation",
+//     Version = "v1",
+//     Description =
+//         "The User Administration API for our financial monitoring application" +
+//         " improves user management by simplifying registration, authentication," +
+//         " and profile management. It provides secure access and strong financial" +
+//         "data protection, making it perfect for applications of all sizes." +
+//         "\n This API enables easy management of user data while complying to strict" +
+//         " data protection standards, so enabling both growth and compliance requirements.",
+//     Contact = new OpenApiContact()
+//     {
+//         Name = "Leuel Asfaw",
+//         Email = "leuela1993@gmail.com"
+//     }
+// };
+//
+// builder.Services.AddSwaggerGen(c =>
+// {
+//     c.SwaggerDoc("v1", info);
+//
+//     var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+//     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+//     c.IncludeXmlComments(xmlPath);
+// });
 
 #endregion
 
@@ -80,15 +81,18 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger(u => { u.RouteTemplate = "swagger/{documentName}/swagger.json"; });
-    app.UseSwaggerUI(c =>
-    {
-        c.RoutePrefix = "swagger";
-        c.SwaggerEndpoint(url: "/swagger/v1/swagger.json", name: "User Management API Documentation");
-    });
+    // app.UseSwagger(u => { u.RouteTemplate = "swagger/{documentName}/swagger.json"; });
+    // app.UseSwaggerUI(c =>
+    // {
+    //     c.RoutePrefix = "swagger";
+    //     c.SwaggerEndpoint(url: "/swagger/v1/swagger.json", name: "User Management API Documentation");
+    // });
 }
 
 app.UseHttpsRedirection();
 app.MapControllers();
+
+// TODO: Is this the correct spot to place the Refresh Access Token Middleware --> READ MORE
+app.UseMiddleware<RefreshAccessTokenMiddleware>();
 
 app.Run();

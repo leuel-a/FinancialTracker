@@ -35,7 +35,6 @@ public class AuthenticateUserRequestHandler : IRequestHandler<AuthenticateUserRe
             response.Success = false;
             response.Message = "Login unsuccessful, validation failed";
             response.Errors = validatorResult.Errors.Select(q => q.ErrorMessage).ToList();
-
             return response;
         }
         
@@ -43,7 +42,16 @@ public class AuthenticateUserRequestHandler : IRequestHandler<AuthenticateUserRe
         if (user == null)
         {
             response.Success = false;
-            response.Message = "Login unsuccessful, user not found";
+            response.Message = "Login unsuccessful, email or password is not correct";
+            return response;
+        }
+        
+        // Verify the password
+        var correctPassword = BCrypt.Net.BCrypt.Verify(request.AuthenticateUserDto.Password, user.Password);
+        if (!correctPassword)
+        {
+            response.Success = false;
+            response.Message = "Login unsuccessful, email or password is not correct";
             return response;
         }
         

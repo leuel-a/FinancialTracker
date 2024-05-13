@@ -10,12 +10,7 @@ public class AuthenticateUserDtoValidator : AbstractValidator<AuthenticateUserDt
         RuleFor(p => p.Email)
             .NotNull().WithMessage("{PropertyName} is required")
             .NotEmpty().WithMessage("{PropertyName} can not be empty")
-            .EmailAddress().WithMessage("{PropertyName} must be an email address")
-            .MustAsync(async (email, token) =>
-            {
-                var userExists = await usersRepository.IsUserExists(email);
-                return !userExists;
-            }).WithMessage("User with email {PropertyValue} does not exist");
+            .EmailAddress().WithMessage("{PropertyName} must be an email address");
 
         RuleFor(p => p.Password)
             .NotNull().WithMessage("{PropertyName} is required")

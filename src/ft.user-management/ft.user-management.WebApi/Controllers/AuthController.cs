@@ -30,7 +30,7 @@ public class AuthController : ControllerBase
         var response = await _mediator.Send(new AuthenticateUserRequest() { AuthenticateUserDto = loginDto });
         if (response.Success == false)
         {
-            return BadRequest(new { response.Message, response.Errors });
+            return BadRequest(new { response.Message, ValidationError = response.Errors });
         }
 
         return Ok(new { AccessToken = response.AccessToken, RefreshToken = response.RefreshToken });
