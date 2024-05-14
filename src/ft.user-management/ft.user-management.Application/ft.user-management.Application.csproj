@@ -19,8 +19,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Features\Auth\Handlers\Commands\" />
-      <Folder Include="Features\Auth\Requests\Commands\" />
+      <Folder Include="Contracts\Persistence\" />
+      <Folder Include="Features\Users\Handlers\Queries\" />
+      <Folder Include="Features\Users\Requests\Queries\" />
     </ItemGroup>
 
 </Project>

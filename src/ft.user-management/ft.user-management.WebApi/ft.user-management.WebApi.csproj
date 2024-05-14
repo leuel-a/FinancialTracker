@@ -24,4 +24,9 @@
         <ProjectReference Include="..\ft.user-management.Infrastructure\ft.user-management.Infrastructure.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Controllers\" />
+      <Folder Include="Middlewares\" />
+    </ItemGroup>
+
 </Project>

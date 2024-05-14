@@ -1,15 +1,14 @@
+using ft.user_management.Domain.Entites;
 using Microsoft.EntityFrameworkCore;
-using ft.user_management.Domain.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
-namespace ft.user_management.Persistence;
+namespace ft.user_management.Infrastructure;
 
-public class UserManagementDbContext : DbContext
+public class UserManagementDbContext : IdentityDbContext
 {
     public UserManagementDbContext(DbContextOptions<UserManagementDbContext> context) : base(context)
     {
     }
-
-    public DbSet<User> Users { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -17,17 +16,17 @@ public class UserManagementDbContext : DbContext
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(UserManagementDbContext).Assembly);
     }
 
-    public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess,
-        CancellationToken cancellationToken = new CancellationToken())
+    public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = new CancellationToken())
     {
-        foreach (var entry in ChangeTracker.Entries<BaseDomainEntity>())
+        foreach (var entry in ChangeTracker.Entries<User>())
         {
-            entry.Entity.LastModifiedDate = DateTime.Now.ToUniversalTime();
+            entry.Entity.LastModifiedAt = DateTime.Now.ToUniversalTime();
 
             if (entry.State == EntityState.Added)
+            {
                 entry.Entity.DateCreatedAt = DateTime.Now.ToUniversalTime();
+            }
         }
-
         return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
     }
 }

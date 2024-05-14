@@ -1,15 +1,10 @@
-using System;
-using System.IO;
 using System.Text;
-using System.Reflection;
-using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using ft.user_management.Persistence;
 using ft.user_management.Application;
 using ft.user_management.Infrastructure;
-using ft.user_management.WebApi.Middlewares;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 
@@ -53,7 +48,7 @@ builder.Services.AddControllers();
 #region Register Services
 
 builder.Services.ConfigureApplicationServices();
-builder.Services.ConfigureInfrastructureServices();
+builder.Services.ConfigureInfrastructureServices(configuration);
 builder.Services.ConfigurePersistenceServices(configuration);
 
 #endregion
@@ -91,8 +86,5 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.MapControllers();
-
-// TODO: Is this the correct spot to place the Refresh Access Token Middleware --> READ MORE
-app.UseMiddleware<RefreshAccessTokenMiddleware>();
 
 app.Run();
