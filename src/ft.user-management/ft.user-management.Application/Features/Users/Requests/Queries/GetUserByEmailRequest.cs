@@ -1,6 +1,10 @@
+using MediatR;
+using ft.user_management.Application.Responses;
+using ft.user_management.Application.Dtos.User;
+
 namespace ft.user_management.Application.Features.Users.Requests.Queries;
 
-public class GetUserByEmailRequest
+public class GetUserByEmailRequest : IRequest<ReadResourceRequestResponse<ReadUserDto>>
 {
-    
+    public string? Email { get; set; } 
 }
