@@ -13,7 +13,8 @@ import {
   Activity,
   ChevronRight,
   User,
-  ChevronLeft
+  ChevronLeft,
+  Settings
 } from 'lucide-react'
 
 export default function SideNavBar() {
@@ -27,7 +28,7 @@ export default function SideNavBar() {
   }
 
   return (
-    <div className="relative min-w-20 border-r px-3 pb-10 pt-24 transition-all">
+    <div className="relative flex min-w-20 flex-col justify-between border-r px-3 pb-10 pt-24 transition-all">
       {!mobile && (
         <div className="absolute -right-6 top-7">
           <Button
@@ -73,6 +74,17 @@ export default function SideNavBar() {
           }
         ]}
         isCollapsed={mobile ? true : isCollapsed}
+      />
+      <Nav
+        isCollapsed={mobile ? true : isCollapsed}
+        links={[
+          {
+            title: 'Settings',
+            icon: Settings,
+            variant: 'ghost',
+            href: '/dashboard/admin/settings'
+          }
+        ]}
       />
     </div>
   )
