@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace ft.user_management.Domain.Entities;
 
-public class ApplicationUser : IdentityUser
+public class ApplicationUser : IdentityUser<int>
 {
     public string? FirstName { get; set; }
     public string? MiddleName { get; set; }

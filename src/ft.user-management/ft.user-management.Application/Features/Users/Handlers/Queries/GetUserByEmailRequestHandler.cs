@@ -9,7 +9,7 @@ using ft.user_management.Application.Features.Users.Requests.Queries;
 
 namespace ft.user_management.Application.Features.Users.Handlers.Queries;
 
-public class GetUserByEmailRequestHandler :IRequestHandler<GetUserByEmailRequest, ReadResourceRequestResponse<ReadUserDto>>
+public class GetUserByEmailRequestHandler :IRequestHandler<GetUserByEmailRequest, ReadResourceResponse<ReadUserDto>>
 {
     private readonly IUsersService _usersService;
     private readonly IMapper _mapper;
@@ -20,9 +20,9 @@ public class GetUserByEmailRequestHandler :IRequestHandler<GetUserByEmailRequest
         _mapper = mapper;
     }
     
-    public async Task<ReadResourceRequestResponse<ReadUserDto>> Handle(GetUserByEmailRequest request, CancellationToken cancellationToken)
+    public async Task<ReadResourceResponse<ReadUserDto>> Handle(GetUserByEmailRequest request, CancellationToken cancellationToken)
     {
-        var response = new ReadResourceRequestResponse<ReadUserDto>();
+        var response = new ReadResourceResponse<ReadUserDto>();
         if (string.IsNullOrEmpty(request.Email))
         {
             response.Success = false;

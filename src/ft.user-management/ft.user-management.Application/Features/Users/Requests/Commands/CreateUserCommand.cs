@@ -4,7 +4,7 @@ using MediatR;
 
 namespace ft.user_management.Application.Features.Users.Requests.Commands;
 
-public class CreateUserCommand : IRequest<CreatedResourceCommandResponse<ReadUserDto>>
+public class CreateUserCommand : IRequest<ReadResourceResponse<ReadUserDto>>
 {
     public CreateUserDto UserDto { get; set; }
 }

@@ -20,6 +20,8 @@
 
     <ItemGroup>
       <Folder Include="Contracts\Persistence\" />
+      <Folder Include="Features\Auth\Handlers\Queries\" />
+      <Folder Include="Features\Auth\Requests\Queries\" />
     </ItemGroup>
 
 </Project>
