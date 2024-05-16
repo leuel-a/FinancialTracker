@@ -2,9 +2,9 @@ using System.Collections.Generic;
 
 namespace ft.user_management.Application.Responses;
 
-public class BaseCommandResponse
+public class BaseResponse
 {
-    public string Email { get; set; }
+    public int Id { get; set; }
     public bool? Success { get; set; }
     public string? Message { get; set; }
     public List<string>? Errors { get; set; }

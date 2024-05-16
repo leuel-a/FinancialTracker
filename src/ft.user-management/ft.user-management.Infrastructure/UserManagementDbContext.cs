@@ -1,10 +1,10 @@
-using ft.user_management.Domain.Entites;
+using ft.user_management.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace ft.user_management.Infrastructure;
 
-public class UserManagementDbContext : IdentityDbContext
+public class UserManagementDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, int>
 {
     public UserManagementDbContext(DbContextOptions<UserManagementDbContext> context) : base(context)
     {
@@ -18,7 +18,7 @@ public class UserManagementDbContext : IdentityDbContext
 
     public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = new CancellationToken())
     {
-        foreach (var entry in ChangeTracker.Entries<User>())
+        foreach (var entry in ChangeTracker.Entries<ApplicationUser>())
         {
             entry.Entity.LastModifiedAt = DateTime.Now.ToUniversalTime();
 
