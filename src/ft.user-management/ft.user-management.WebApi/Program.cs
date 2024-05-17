@@ -98,8 +98,8 @@ var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
-    var service = scope.ServiceProvider;
-    await InfrastructureServicesRegistration.CreateRoles(service, app.Configuration);
+    var serviceProvider = scope.ServiceProvider;
+    await IdentitySetupAndTearDown.CreateRoles(serviceProvider, configuration);
 }
 
 if (app.Environment.IsDevelopment())

@@ -40,7 +40,7 @@ public class UsersController : ControllerBase
         return Ok(response.Resource);
     }
 
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [HttpGet]
     public async Task<IActionResult> GetAllUsers()
     {
