@@ -1,3 +1,4 @@
+using System;
 using MediatR;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -8,6 +9,8 @@ using ft.user_management.Application.Features.Users.Requests.Commands;
 
 namespace ft.user_management.WebApi.Controllers;
 
+[Route("api/[controller]")]
+[ApiController]
 public class UsersController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -34,14 +37,14 @@ public class UsersController : ControllerBase
 
         if (response.Success == false)
             return BadRequest(new { response.Message, response.Errors });
-        return Ok(new { User = response.Resource });
+        return Ok(response.Resource);
     }
 
-    [Authorize(Roles = "Admin")]
+    [Authorize]
     [HttpGet]
     public async Task<IActionResult> GetAllUsers()
     {
         var response = await _mediator.Send(new GetAllUsersRequest());
-        return Ok(new { Users = response.Resources });
+        return Ok(response.Resources);
     }
 }

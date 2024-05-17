@@ -6,7 +6,7 @@ using ft.user_management.Application.Features.Auth.Requests.Commands;
 
 namespace ft.user_management.WebApi.Controllers;
 
-[Microsoft.AspNetCore.Components.Route("api/[controller]")]
+[Route("api/[controller]")]
 [ApiController]
 public class AuthController : ControllerBase
 {
@@ -17,7 +17,7 @@ public class AuthController : ControllerBase
         _mediator = mediator;
     }
 
-    [HttpPost]
+    [HttpPost("login")]
     public async Task<IActionResult> LoginUser([FromBody] LoginUserDto loginUserDto)
     {
         var response = await _mediator.Send(new LoginUserCommand() { userDto = loginUserDto });

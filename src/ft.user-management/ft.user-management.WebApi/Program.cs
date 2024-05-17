@@ -1,4 +1,9 @@
+using System;
+using System.IO;
 using System.Text;
+using System.Reflection;
+using Microsoft.OpenApi.Models;
+using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.IdentityModel.Tokens;
 using ft.user_management.Persistence;
@@ -10,9 +15,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddControllers();
-
 #region Register Services
 
 builder.Services.ConfigureApplicationServices();
@@ -21,9 +23,17 @@ builder.Services.ConfigurePersistenceServices(configuration);
 
 #endregion
 
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+
 #region Add Jwt Authentication Details
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(options =>
 {
     options.TokenValidationParameters = new TokenValidationParameters
     {
@@ -39,6 +49,51 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 
 #endregion
 
+builder.Services.AddAuthorization();
+
+#region Add Swagger
+
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "User Management API",
+        Version = "v1",
+        Description = "API for managing users in the financial tracking application."
+    });
+
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    c.IncludeXmlComments(xmlPath);
+
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        In = ParameterLocation.Header,
+        Description = "Please enter a valid token",
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        BearerFormat = "JWT",
+        Scheme = "Bearer"
+    });
+
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            Array.Empty<string>()
+        }
+    });
+});
+
+#endregion
+
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
@@ -47,7 +102,17 @@ using (var scope = app.Services.CreateScope())
     await InfrastructureServicesRegistration.CreateRoles(service, app.Configuration);
 }
 
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "User Management API v1"); });
+}
+
+app.UseAuthentication();
+app.UseAuthorization();
+
 app.UseHttpsRedirection();
+
 app.MapControllers();
 
 app.Run();
