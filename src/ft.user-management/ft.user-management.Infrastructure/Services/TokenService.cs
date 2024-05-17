@@ -33,7 +33,6 @@ public class TokenService : ITokenService
     public async Task<string> GenerateToken(ApplicationUser user, string type = "AccessToken")
     {
         var key = type == "AccessToken" ? _accessTokenKey : _refreshTokenKey;
-
         
         if (string.IsNullOrEmpty(key))
             throw new Exception($"Key for {type} is not set in appsettings[.Development].json");
@@ -43,14 +42,13 @@ public class TokenService : ITokenService
         if (string.IsNullOrEmpty(expiryDate))
             throw new Exception($"Expiry date for {type} is not set in appsettings[.Development].json");
 
-
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
         var claims = new List<Claim>
         {
-            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
+            new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+            new(ClaimTypes.NameIdentifier, user.Id.ToString())
         };
 
         var roles = await _usersService.GetRoleAsync(user);
@@ -63,7 +61,7 @@ public class TokenService : ITokenService
 
     public int? GetUserIdFromToken(string token)
     {
-        if (IsTokenExpired(token) == true)
+        if (IsTokenExpired(token))
             return null;
 
         var principal = _tokenHandler.ValidateToken(token,
@@ -72,7 +70,7 @@ public class TokenService : ITokenService
                 ValidateAudience = true, ValidateIssuer = true, ValidateIssuerSigningKey = true,
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_accessTokenKey)),
                 ValidateLifetime = true
-            }, out var securityToken);
+            }, out _);
 
         var userId = principal.Claims.First(c => c.Type == ClaimTypes.NameIdentifier).Value;
         return int.Parse(userId);
