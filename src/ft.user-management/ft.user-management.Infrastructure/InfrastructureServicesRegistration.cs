@@ -21,6 +21,7 @@ public static class InfrastructureServicesRegistration
             .AddEntityFrameworkStores<UserManagementDbContext>().AddDefaultTokenProviders();
 
         services.AddScoped<IUsersService, UsersService>();
+        services.AddScoped<ITokenService, TokenService>();
         return services;
     }
 
@@ -36,15 +37,21 @@ public static class InfrastructureServicesRegistration
             { "Employee", "Standard user with access to basic functionalities." }
         };
 
-        IdentityResult roleResult;
-
         foreach (var (roleName, description) in rolesDescription)
         {
             var roleExists = await roleManager.RoleExistsAsync(roleName);
-            if (!roleExists)
+
+            if (roleExists)
             {
-                roleResult = await roleManager.CreateAsync(new ApplicationRole() { Name = roleName ,Description = description });
+                Console.WriteLine($"Role: {roleName} exists. No need to createRole");
+                continue;
             }
+
+            var roleResult = await roleManager.CreateAsync(new ApplicationRole()
+                { Name = roleName, Description = description });
+
+            if (roleResult.Succeeded == false)
+                Console.WriteLine($"Error creating role: {roleName}");
         }
 
         var password = configuration.GetSection("PowerUser:Password").Value!;
@@ -54,6 +61,7 @@ public static class InfrastructureServicesRegistration
         {
             FirstName = "Leuel",
             LastName = "Gebreseslassie",
+            UserName = "leuel",
             DateCreatedAt = DateTime.Now.ToUniversalTime(),
             LastModifiedAt = DateTime.Now.ToUniversalTime(),
             Email = email
@@ -62,11 +70,16 @@ public static class InfrastructureServicesRegistration
         var user = await userManager.FindByEmailAsync(email);
         if (user == null)
         {
-            var createPowerUser = await userManager.CreateAsync(powerUser, password);
-            if (createPowerUser.Succeeded == true)
+            var result = await userManager.CreateAsync(powerUser, password);
+            if (result.Succeeded == false)
             {
-                await userManager.AddToRoleAsync(powerUser, "Admin");
-            }
+                Console.WriteLine("Power user creation failed.");
+                foreach (var error in result.Errors)
+                    Console.WriteLine(error.Description);
+            } 
+            await userManager.AddToRoleAsync(powerUser, "Admin");
         }
+        
+        Console.WriteLine("Power user already exists");
     }
 }

@@ -8,16 +8,16 @@ namespace ft.user_management.Infrastructure.Services;
 public class UsersService : IUsersService
 {
     private readonly UserManager<ApplicationUser> _userManager;
-    
-    public UsersService(UserManager<ApplicationUser> userManager)
+    private readonly UserManagementDbContext _dbContext;
+    public UsersService(UserManager<ApplicationUser> userManager, UserManagementDbContext dbContext)
     {
+        _dbContext = dbContext;
         _userManager = userManager;
     }
     
-    public async Task<ApplicationUser?> AddAsync(ApplicationUser applicationUser, string password)
+    public async Task<IdentityResult> AddAsync(ApplicationUser applicationUser, string password)
     {
-        var result = await _userManager.CreateAsync(applicationUser, password);
-        return result.Succeeded == true ? applicationUser : null;
+        return await _userManager.CreateAsync(applicationUser, password);
     }
 
     public async Task<ApplicationUser?> GetByIdAsync(int id)
@@ -33,9 +33,7 @@ public class UsersService : IUsersService
     public async Task<ApplicationUser?> UpdateAsync(ApplicationUser applicationUser)
     {
         var result = await _userManager.UpdateAsync(applicationUser);
-        if (result.Succeeded == true)
-            return applicationUser;
-        return null;
+        return result.Succeeded == true ? applicationUser : null;
     }
 
     public async Task<bool> DeleteAsync(int id)
@@ -52,8 +50,20 @@ public class UsersService : IUsersService
         return await _userManager.FindByEmailAsync(email);
     }
 
+    public async Task<List<string>> GetRoleAsync(ApplicationUser user)
+    {
+        var roles = await _userManager.GetRolesAsync(user);
+        return roles.ToList();
+    }
+
     public async Task<bool> VerifyPasswordAsync(ApplicationUser applicationUser, string password)
     {
         return await _userManager.CheckPasswordAsync(applicationUser, password);
+    }
+    
+    public async Task<bool> SaveChangesAsync()
+    {
+        var result = await _dbContext.SaveChangesAsync();
+        return result > 0;
     }
 }

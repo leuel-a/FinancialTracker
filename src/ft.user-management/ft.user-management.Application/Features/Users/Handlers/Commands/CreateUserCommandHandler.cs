@@ -1,3 +1,4 @@
+using System;
 using MediatR;
 using AutoMapper;
 using System.Linq;
@@ -33,16 +34,27 @@ public class CreateUserCommandHandler: IRequestHandler<CreateUserCommand, ReadRe
             response.Success = false;
             response.Message = "Validation errors occured.";
             response.Errors = validationResult.Errors.Select(e => e.ErrorMessage).ToList();
+            
             return response;
         }
         
         var user = _mapper.Map<ApplicationUser>(request.UserDto);
-        await _usersService.AddAsync(user, request.UserDto.Password!);
+        var result = await _usersService.AddAsync(user, request.UserDto.Password!);
 
+        if (result.Succeeded == false)
+        {
+            response.Success = false;
+            response.Message = "User creation failed";
+            response.Errors = result.Errors.Select(e => e.Description).ToList();
+
+            return response;
+        }
+        
         response.Success = true;
         response.Message = "User created successfully.";
         response.Id = user.Id;
         response.Resource = _mapper.Map<ReadUserDto>(user);
+        
         return response;
     }
 }
