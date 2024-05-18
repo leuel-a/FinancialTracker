@@ -10,8 +10,8 @@ public interface IUsersService
     Task<IdentityResult> AddAsync(ApplicationUser applicationUser, string password);
     Task<ApplicationUser?> GetByIdAsync(int id);
     Task<List<ApplicationUser>> GetAllAsync();
-    Task<ApplicationUser?> UpdateAsync(ApplicationUser applicationUser);
-    Task<bool> DeleteAsync(int id);
+    Task<IdentityResult> UpdateAsync(ApplicationUser applicationUser);
+    Task<IdentityResult> DeleteAsync(ApplicationUser user);
     Task<ApplicationUser?> GetUserByEmailAsync(string email);
     Task<List<string>> GetRoleAsync(ApplicationUser user);
     Task<bool> VerifyPasswordAsync(ApplicationUser applicationUser, string password);

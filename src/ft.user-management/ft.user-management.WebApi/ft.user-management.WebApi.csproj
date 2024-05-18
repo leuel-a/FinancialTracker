@@ -7,6 +7,7 @@
         <RootNamespace>ft.user_management.WebApi</RootNamespace>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <NoWarn>${NoWarn};1591</NoWarn>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     </PropertyGroup>
 
     <ItemGroup>

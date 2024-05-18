@@ -30,19 +30,15 @@ public class UsersService : IUsersService
         return await _userManager.Users.ToListAsync();
     }
 
-    public async Task<ApplicationUser?> UpdateAsync(ApplicationUser applicationUser)
+    public async Task<IdentityResult> UpdateAsync(ApplicationUser applicationUser)
     {
-        var result = await _userManager.UpdateAsync(applicationUser);
-        return result.Succeeded == true ? applicationUser : null;
+        return await _userManager.UpdateAsync(applicationUser);
     }
 
-    public async Task<bool> DeleteAsync(int id)
+    public async Task<IdentityResult> DeleteAsync(ApplicationUser user)
     {
-        var user = await GetByIdAsync(id);
-        if (user == null)
-            return false;
         var result = await _userManager.DeleteAsync(user);
-        return result.Succeeded == true;
+        return result;
     }
 
     public async Task<ApplicationUser?> GetUserByEmailAsync(string email)

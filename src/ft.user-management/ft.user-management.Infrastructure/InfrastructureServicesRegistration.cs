@@ -21,9 +21,8 @@ public static class InfrastructureServicesRegistration
             .AddEntityFrameworkStores<UserManagementDbContext>().AddDefaultTokenProviders();
 
         services.AddScoped<IUsersService, UsersService>();
+        services.AddScoped<IRolesService, RolesService>();
         services.AddScoped<ITokenService, TokenService>();
         return services;
     }
-
-
 }
