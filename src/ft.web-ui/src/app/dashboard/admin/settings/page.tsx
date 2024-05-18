@@ -6,7 +6,6 @@ export default function AdminSettingsPage() {
   return (
     <div>
       Setting page
-
     </div>
   )
 }

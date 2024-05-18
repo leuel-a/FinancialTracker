@@ -2,6 +2,7 @@ import './globals.css'
 import '@mantine/core/styles.css'
 import '@mantine/dates/styles.css'
 import type { Metadata } from 'next'
+import ReduxProvider from './components/ReduxProvider'
 
 import { ColorSchemeScript, MantineProvider } from '@mantine/core'
 
@@ -28,7 +29,9 @@ export default function RootLayout({
           'min-h-screen w-full bg-white font-poppins text-black'
         )}
       >
-        <MantineProvider>{children}</MantineProvider>
+        <ReduxProvider>
+          <MantineProvider>{children}</MantineProvider>
+        </ReduxProvider>
       </body>
     </html>
   )
