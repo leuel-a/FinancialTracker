@@ -1,10 +1,4 @@
 import React from 'react'
-import axios from 'axios'
-import Image from 'next/image'
-import { redirect } from 'next/navigation'
-import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
-import ErrorMessage from './components/ErrorMessage'
 import ImageSlider from './components/ImageSlider'
 import LoginForm from '../features/auth/components/LoginForm'
 
