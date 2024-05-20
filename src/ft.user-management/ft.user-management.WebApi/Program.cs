@@ -49,6 +49,12 @@ builder.Services.AddAuthentication(options =>
 
 #endregion
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("ApiGatewayPolicy",
+        b => { b.WithOrigins("http://localhost:5000").AllowAnyHeader().AllowAnyMethod(); });
+});
+
 builder.Services.AddAuthorization();
 
 #region Add Swagger
@@ -111,6 +117,7 @@ if (app.Environment.IsDevelopment())
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseCors("ApiGatewayPolicy");
 app.UseHttpsRedirection();
 
 app.MapControllers();
