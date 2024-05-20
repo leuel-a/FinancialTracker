@@ -1,9 +1,5 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "core", "core", "{B33641FA-DAD0-4899-BCCB-F64F27BCE73F}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "infrastructure", "infrastructure", "{9390E8DD-D6D5-4011-AFD3-FCBB1E520B4F}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "presentation", "presentation", "{80C852C5-4E02-42D6-9FEA-D9FD5A62D16A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiGateway", "ApiGateway\ApiGateway.csproj", "{3811F18F-CC47-47A7-B4A3-835FB89E9E08}"
