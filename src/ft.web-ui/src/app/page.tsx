@@ -1,12 +1,20 @@
 import React from 'react'
+import { redirect } from 'next/navigation'
 import ImageSlider from './components/ImageSlider'
 import LoginForm from '../features/auth/components/LoginForm'
+import { isAuthenticated } from '@/lib/isAuthenticated'
 
 interface HomeProps {
   searchParams?: { [key: string]: string | string[] | undefined }
 }
 
 export default function Home({ searchParams }: HomeProps) {
+  const isAuth = isAuthenticated()
+
+  if (isAuth) {
+    return redirect('/dashboard')
+  }
+
   return (
     <div className="flex h-screen">
       <div className="flex flex-1 flex-col items-center justify-center">
@@ -24,7 +32,7 @@ export default function Home({ searchParams }: HomeProps) {
           </p>
         </div>
       </div>
-      <div className="flex flex-1 flex-col items-center justify-center bg-blue-500">
+      <div className="flex flex-1 flex-col items-center justify-center bg-zinc-800">
         <ImageSlider />
       </div>
     </div>

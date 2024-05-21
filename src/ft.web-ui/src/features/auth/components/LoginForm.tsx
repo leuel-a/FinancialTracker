@@ -1,6 +1,7 @@
 'use client'
 
 import { z } from 'zod'
+import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { Eye, EyeOff } from 'lucide-react'
 import { loginUser } from '../authActions'
@@ -11,6 +12,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useDispatch, useSelector } from '@/store/hooks'
 import LoadingSpinner from '../../../components/LoadingSpinner'
 import { Form, FormItem, FormField, FormMessage, FormControl } from '@/components/ui/form'
+import { PayloadAction } from '@reduxjs/toolkit'
 
 export const loginUserSchema = z.object({
   email: z
@@ -23,6 +25,7 @@ export default function LoginForm() {
   const [passwordVisible, setPasswordVisible] = useState<boolean>(false)
   const { loading, success, error } = useSelector(state => state.auth)
   const dispatch = useDispatch()
+  const router = useRouter()
 
   const form = useForm<z.infer<typeof loginUserSchema>>({
     resolver: zodResolver(loginUserSchema)
@@ -39,9 +42,14 @@ export default function LoginForm() {
 
   const onSubmit = async (values: z.infer<typeof loginUserSchema>) => {
     const { email, password } = values
-    dispatch(loginUser({ email, password }))
+    const response = await dispatch(loginUser({ email, password }))
+    
+    // check if the login was successful
+    if (loginUser.fulfilled.match(response)) {
+      router.push('/dashboard')
+    }
   }
- 
+
   return (
     <Form {...form}>
       <form autoComplete="off" onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4">
@@ -91,7 +99,7 @@ export default function LoginForm() {
             </FormItem>
           )}
         />
-        <Button type="submit" className="text-md h-12 bg-blue-500 hover:bg-blue-600">
+        <Button type="submit" className="text-md h-12 bg-zinc-600 hover:bg-zinc-700">
           {loading ? <LoadingSpinner /> : 'Login'}
         </Button>
       </form>

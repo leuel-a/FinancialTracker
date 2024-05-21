@@ -5,8 +5,6 @@ import { createSlice } from '@reduxjs/toolkit'
 interface AuthState {
   loading: boolean
   user?: User
-  accessToken?: string
-  refreshToken?: string
   error?: string
   errorMessages?: string[]
   success: boolean
@@ -33,8 +31,6 @@ const authSlice = createSlice({
     builder.addCase(loginUser.fulfilled, (state, action) => {
       state.success = true
       state.loading = false
-      state.accessToken = action.payload.accessToken
-      state.refreshToken = action.payload.refreshToken
       state.error = undefined
       state.errorMessages = undefined
     })
