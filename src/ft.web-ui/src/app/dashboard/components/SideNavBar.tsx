@@ -2,7 +2,9 @@
 
 import { useWindowWidth } from '@react-hook/window-size'
 
-import { useState } from 'react'
+import { jwtDecode, JwtPayload } from 'jwt-decode'
+import Cookies from 'js-cookie'
+import { useState, useEffect } from 'react'
 import { Nav } from './ui/nav'
 import { Button } from '@/components/ui/button'
 
@@ -17,8 +19,23 @@ import {
   Settings
 } from 'lucide-react'
 
+interface ExtendedJwtPayload extends JwtPayload {
+  'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'?: string
+}
+
 export default function SideNavBar() {
+  const [isAdmin, setIsAdmin] = useState<boolean>(false)
   const [isCollapsed, setIsCollapsed] = useState<boolean>(false)
+
+  useEffect(() => {
+    const accessToken = Cookies.get('accessToken')
+    const decodedAccessToken = jwtDecode<ExtendedJwtPayload>(accessToken as string)
+
+    const roleClaim = 'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
+    if (decodedAccessToken[roleClaim]) {
+      setIsAdmin(true)
+    }
+  }, [])
 
   const onlyWidth = useWindowWidth()
   const mobile = onlyWidth < 768
@@ -75,17 +92,19 @@ export default function SideNavBar() {
         ]}
         isCollapsed={mobile ? true : isCollapsed}
       />
-      <Nav
-        isCollapsed={mobile ? true : isCollapsed}
-        links={[
-          {
-            title: 'Settings',
-            icon: Settings,
-            variant: 'ghost',
-            href: '/dashboard/admin/settings'
-          }
-        ]}
-      />
+      {isAdmin && (
+        <Nav
+          isCollapsed={mobile ? true : isCollapsed}
+          links={[
+            {
+              title: 'Settings',
+              icon: Settings,
+              variant: 'ghost',
+              href: '/dashboard/admin/settings'
+            }
+          ]}
+        />
+      )}
     </div>
   )
 }

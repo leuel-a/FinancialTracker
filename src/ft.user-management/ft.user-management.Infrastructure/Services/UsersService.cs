@@ -9,12 +9,13 @@ public class UsersService : IUsersService
 {
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly UserManagementDbContext _dbContext;
+
     public UsersService(UserManager<ApplicationUser> userManager, UserManagementDbContext dbContext)
     {
         _dbContext = dbContext;
         _userManager = userManager;
     }
-    
+
     public async Task<IdentityResult> AddAsync(ApplicationUser applicationUser, string password)
     {
         return await _userManager.CreateAsync(applicationUser, password);
@@ -56,10 +57,10 @@ public class UsersService : IUsersService
     {
         return await _userManager.CheckPasswordAsync(applicationUser, password);
     }
-    
-    public async Task<bool> SaveChangesAsync()
+
+    public async Task<IdentityResult> AddToRoleAsync(ApplicationUser applicationUser, string roleName)
     {
-        var result = await _dbContext.SaveChangesAsync();
-        return result > 0;
+        var result = await _userManager.AddToRoleAsync(applicationUser, roleName);
+        return result;
     }
 }
