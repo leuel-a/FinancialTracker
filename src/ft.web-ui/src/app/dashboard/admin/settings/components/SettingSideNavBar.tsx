@@ -2,7 +2,6 @@
 
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
-import { useState } from 'react'
 import { usePathname } from 'next/navigation'
 
 const links: { title: string; description: string; href: string }[] = [
@@ -26,19 +25,18 @@ export default function SettingsSideNavBar({
   return (
     <div
       {...props}
-      className={cn(className, 'mr-6 flex flex-col items-center justify-start gap-2 pt-2')}
+      className={cn(className, 'mr-6 flex flex-col items-start justify-start gap-2 pt-2')}
     >
       {links.map(({ href, title }, index) => (
-        <div
-          className={cn(
-            'w-full rounded-lg px-2 py-4 outline outline-[1px] outline-offset-2 hover:bg-zinc-700 hover:text-white',
-            pathname === href && "bg-zinc-700 text-white"
-          )}
-        >
-          <Link className="cursor-pointer" href={href}>
+        <>
+          <Link
+            className={cn('w-full cursor-pointer rounded-md px-4 py-2 hover:bg-gray-100', pathname === href && 'bg-gray-100 border-[1px] shadow-md')}
+            href={href}
+          >
             {title}
           </Link>
-        </div>
+          {index !== links.length - 1 && <div className="h-px w-full bg-gray-200" />}
+        </>
       ))}
     </div>
   )
