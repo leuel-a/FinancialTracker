@@ -8,11 +8,13 @@ interface SettingsLayoutProps {
 
 export default function SettingsLayout({ children }: SettingsLayoutProps) {
   return (
-    <div>
+    <div className="flex h-full flex-col gap-6">
       <PageTitle title="Settings" />
-      <div className='flex gap-5  bg-red-50'>
-        <SettingsSideNavBar />
-        {children}
+      <div className="grid h-full grid-cols-12">
+        <div className='col-span-2 border-r-[1px]'>
+          <SettingsSideNavBar className=" rounded-lg" />
+        </div>
+        <div className="col-span-10">{children}</div>
       </div>
     </div>
   )

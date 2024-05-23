@@ -1,6 +1,6 @@
-import axios, { AxiosError, AxiosResponse } from 'axios'
 import Cookie from 'js-cookie'
 import { createAsyncThunk } from '@reduxjs/toolkit'
+import axios, { AxiosError, AxiosResponse } from 'axios'
 import { ValidationError, ValidationSuccess } from '@/types/validation'
 
 type LoginResponse = {

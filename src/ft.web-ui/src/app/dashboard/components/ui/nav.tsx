@@ -1,7 +1,5 @@
 'use client'
 
-import { usePathname } from 'next/navigation'
-
 import Link from 'next/link'
 import { LucideIcon } from 'lucide-react'
 
@@ -11,6 +9,8 @@ import { buttonVariants } from '@/components/ui/button'
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from '@/components/ui/tooltip'
 
 interface NavProps {
+  selected: string
+  setSelected: (selected: string) => void
   isCollapsed: boolean
   links: {
     title: string
@@ -49,9 +49,7 @@ export function getBestMatch(
   return bestMatch // Returns the href that is the longest match
 }
 
-export function Nav({ links, isCollapsed }: NavProps) {
-  const pathname = usePathname()
-
+export function Nav({ links, isCollapsed, setSelected, selected }: NavProps) {
   return (
     <TooltipProvider>
       <div
@@ -66,9 +64,10 @@ export function Nav({ links, isCollapsed }: NavProps) {
                 <TooltipTrigger asChild>
                   <Link
                     href={link.href}
+                    onClick={() => setSelected(link.href)}
                     className={cn(
                       buttonVariants({
-                        variant: link.href === getBestMatch(pathname, links) ? 'default' : 'ghost',
+                        variant: link.href === selected ? 'default' : 'ghost',
                         size: 'icon'
                       }),
                       'h-9 w-9',
@@ -90,10 +89,11 @@ export function Nav({ links, isCollapsed }: NavProps) {
             ) : (
               <Link
                 key={index}
+                onClick={() => setSelected(link.href)}
                 href={link.href}
                 className={cn(
                   buttonVariants({
-                    variant: link.href === getBestMatch(pathname, links) ? 'default' : 'ghost',
+                    variant: link.href == selected ? 'default' : 'ghost',
                     size: 'sm'
                   }),
                   link.variant === 'default' &&

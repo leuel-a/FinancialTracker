@@ -1,8 +1,8 @@
 import React from 'react'
 import { redirect } from 'next/navigation'
 import ImageSlider from './components/ImageSlider'
+import { isAuthenticated } from '@/lib/auth.server'
 import LoginForm from '../features/auth/components/LoginForm'
-import { isAuthenticated } from '@/lib/isAuthenticated'
 
 interface HomeProps {
   searchParams?: { [key: string]: string | string[] | undefined }
