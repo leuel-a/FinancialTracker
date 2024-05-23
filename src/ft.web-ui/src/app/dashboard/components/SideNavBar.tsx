@@ -16,7 +16,8 @@ import {
   ChevronRight,
   User,
   ChevronLeft,
-  Settings
+  Settings,
+  LogOut
 } from 'lucide-react'
 
 interface ExtendedJwtPayload extends JwtPayload {
@@ -31,8 +32,10 @@ export default function SideNavBar() {
     const accessToken = Cookies.get('accessToken')
     const decodedAccessToken = jwtDecode<ExtendedJwtPayload>(accessToken as string)
 
+    console.log(decodedAccessToken)
+
     const roleClaim = 'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
-    if (decodedAccessToken[roleClaim]) {
+    if (decodedAccessToken[roleClaim] === 'Admin') {
       setIsAdmin(true)
     }
   }, [])
@@ -92,7 +95,7 @@ export default function SideNavBar() {
         ]}
         isCollapsed={mobile ? true : isCollapsed}
       />
-      {isAdmin && (
+      {isAdmin ? (
         <Nav
           isCollapsed={mobile ? true : isCollapsed}
           links={[
@@ -101,6 +104,18 @@ export default function SideNavBar() {
               icon: Settings,
               variant: 'ghost',
               href: '/dashboard/admin/settings'
+            }
+          ]}
+        />
+      ) : (
+        <Nav
+          isCollapsed={mobile ? true : isCollapsed}
+          links={[
+            {
+              title: 'Logout',
+              icon: LogOut,
+              variant: 'ghost',
+              href: '/logout'
             }
           ]}
         />
