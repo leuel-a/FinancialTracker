@@ -33,7 +33,7 @@ public class TokenService : ITokenService
     public async Task<string> GenerateToken(ApplicationUser user, string type = "AccessToken")
     {
         var key = type == "AccessToken" ? _accessTokenKey : _refreshTokenKey;
-        
+
         if (string.IsNullOrEmpty(key))
             throw new Exception($"Key for {type} is not set in appsettings[.Development].json");
 
@@ -67,9 +67,13 @@ public class TokenService : ITokenService
         var principal = _tokenHandler.ValidateToken(token,
             new TokenValidationParameters
             {
-                ValidateAudience = true, ValidateIssuer = true, ValidateIssuerSigningKey = true,
+                ValidateAudience = true,
+                ValidateIssuer = true,
+                ValidateIssuerSigningKey = true,
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_accessTokenKey)),
-                ValidateLifetime = true
+                ValidateLifetime = true,
+                ValidAudience = _audience,
+                ValidIssuer = _issuer
             }, out _);
 
         var userId = principal.Claims.First(c => c.Type == ClaimTypes.NameIdentifier).Value;
@@ -78,13 +82,37 @@ public class TokenService : ITokenService
 
     public bool IsTokenExpired(string token)
     {
-        var principal = GetPrincipalFromExpiredToken(token);
+        try
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var jwtToken = tokenHandler.ReadJwtToken(token);
 
-        var expirationDateUnix =
-            long.Parse(principal.Claims.First(c => c.Type == JwtRegisteredClaimNames.Exp).Value);
-        var expirationDate = DateTimeOffset.FromUnixTimeSeconds(expirationDateUnix);
+            if (jwtToken == null)
+                return true;
 
-        return expirationDate.UtcDateTime < DateTime.UtcNow;
+            var expirationDate = jwtToken.ValidTo;
+            return expirationDate < DateTime.UtcNow;
+        }
+        catch (Exception ex)
+        {
+            return true;
+        }
+    }
+
+    public async Task<string?> RefreshAccessToken(string accessToken, string refreshToken)
+    {
+        var principal = GetPrincipalFromExpiredToken(accessToken);
+        var userId = principal.Claims.First(c => c.Type == ClaimTypes.NameIdentifier).Value;
+
+        var refreshTokenUserId = GetUserIdFromToken(refreshToken);
+        if (refreshTokenUserId == null || userId != refreshTokenUserId.ToString())
+            return null;
+        
+        var user = await _usersService.GetByIdAsync(int.Parse(userId));
+        if (user == null)
+            return null;
+
+        return await GenerateToken(user);
     }
 
     private ClaimsPrincipal GetPrincipalFromExpiredToken(string token)

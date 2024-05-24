@@ -1,4 +1,3 @@
-using System;
 using MediatR;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -10,7 +9,6 @@ using ft.user_management.Application.Features.Users.Requests.Commands;
 namespace ft.user_management.WebApi.Controllers;
 
 [Route("api/[controller]")]
-[Authorize(Roles = "Admin")]
 [ApiController]
 public class UsersController : ControllerBase
 {
@@ -27,6 +25,7 @@ public class UsersController : ControllerBase
     /// <param name="userDto">The user data transfer object containing the details of the user to be created.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains the action result.</returns>
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> CreateUser([FromBody] CreateUserDto userDto)
     {
         var response = await _mediator.Send(new CreateUserCommand() { UserDto = userDto });
@@ -46,7 +45,7 @@ public class UsersController : ControllerBase
     [HttpPut("{id:int}")]
     public async Task<IActionResult> UpdateUser([FromBody] UpdateUserDto userDto, int id)
     {
-        var response = await _mediator.Send(new UpdateUserCommand { UserDto = userDto });
+        var response = await _mediator.Send(new UpdateUserCommand { UserDto = userDto, Id = id});
 
         if (response.Success == false)
             return BadRequest(new { response.Message, response.Errors });
@@ -59,6 +58,7 @@ public class UsersController : ControllerBase
     /// <param name="id">The ID of the user to be retrieved.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains the action result.</returns>
     [HttpGet("{id:int}", Name = "GetUserById")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> GetUserById(int id)
     {
         var response = await _mediator.Send(new GetUserByIdRequest() { Id = id });
@@ -73,6 +73,7 @@ public class UsersController : ControllerBase
     /// </summary>
     /// <returns>A task that represents the asynchronous operation. The task result contains the action result.</returns>
     [HttpGet]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> GetAllUsers()
     {
         var response = await _mediator.Send(new GetAllUsersRequest());
@@ -85,6 +86,7 @@ public class UsersController : ControllerBase
     /// <param name="id">The ID of the user to be deleted.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains the action result.</returns>
     [HttpDelete("{id:int}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> DeleteUser(int id)
     {
         var response = await _mediator.Send(new DeleteUserCommand() { Id = id });
@@ -101,6 +103,7 @@ public class UsersController : ControllerBase
     /// <param name="roleId">The ID of the role to be added to the user.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains the action result.</returns>
     [HttpPatch("{id:int}/roles/{roleId:int}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> AddToRole(int id, int roleId)
     {
         var addRoleToUserDto = new AddRoleToUserDto() { UserId = id, RoleId = roleId };
@@ -119,6 +122,7 @@ public class UsersController : ControllerBase
     /// <response code="200">Returns the roles of the user if successful.</response>
     /// <response code="400">If the request is unsuccessful, returns an error message and errors.</response>
     [HttpGet("{id:int}/roles")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> GetRolesForUser(int id)
     {
         var response = await _mediator.Send(new GetRolesForUserRequest() { Id = id });

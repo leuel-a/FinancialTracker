@@ -9,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using ft.user_management.Persistence;
 using ft.user_management.Application;
 using ft.user_management.Infrastructure;
+using ft.user_management.WebApi.Middlewares;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 
@@ -52,7 +53,7 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("ApiGatewayPolicy",
-        b => { b.WithOrigins("http://localhost:5000").AllowAnyHeader().AllowAnyMethod(); });
+        b => { b.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod(); });
 });
 
 builder.Services.AddAuthorization();
@@ -113,6 +114,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "User Management API v1"); });
 }
+
+app.UseMiddleware<RefreshAccessTokenMiddleware>();
 
 app.UseAuthentication();
 app.UseAuthorization();

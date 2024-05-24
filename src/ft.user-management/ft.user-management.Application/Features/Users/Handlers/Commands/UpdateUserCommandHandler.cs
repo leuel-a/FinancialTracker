@@ -47,6 +47,8 @@ public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, BaseR
             response.Success = false;
             response.Message = "User update unsuccessful. Refer the errors for more information.";
             response.Errors = result.Errors.Select(e => e.Description).ToList();
+            
+            return response;
         }
 
         response.Success = true;

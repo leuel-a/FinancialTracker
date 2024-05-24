@@ -8,4 +8,5 @@ public interface ITokenService
    Task<string> GenerateToken(ApplicationUser user, string type = "AccessToken");
    int? GetUserIdFromToken(string token);
    bool IsTokenExpired(string token);
+   Task<string?> RefreshAccessToken(string accessToken, string refreshToken);
 }

@@ -1,10 +1,8 @@
+using ft.user_management.Application.Dtos.User.Validators;
+
 namespace ft.user_management.Application.Dtos.User;
 
-public class ReadUserDto
+public class ReadUserDto : BaseUserDto
 {
-    public string? Id { get; set; }
-    public string? FirstName { get; set; }
-    public string? LastName { get; set; }
-    public string? Email { get; set; }
-    public string? DateOfBirth { get; set; }
+    public int Id { get; set; }
 }
