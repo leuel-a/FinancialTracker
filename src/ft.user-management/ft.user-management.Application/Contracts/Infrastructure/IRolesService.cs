@@ -10,6 +10,6 @@ public interface IRolesService
     Task<List<ApplicationRole>> GetAllRoles();
     Task<ApplicationRole?> GetRoleById(int id);
     Task<IdentityResult> AddRoleAsync(ApplicationRole role);
-    Task UpdateRoleAsync(ApplicationRole role);
-    Task DeleteRoleAsync(ApplicationRole role);
+    Task<IdentityResult> UpdateRoleAsync(ApplicationRole role);
+    Task<IdentityResult> DeleteRoleAsync(ApplicationRole role);
 }

@@ -29,13 +29,13 @@ public class RolesService : IRolesService
         return await _roleManager.CreateAsync(role);
     }
 
-    public async Task UpdateRoleAsync(ApplicationRole role)
+    public async Task<IdentityResult> UpdateRoleAsync(ApplicationRole role)
     {
-        await _roleManager.UpdateAsync(role);
+        return await _roleManager.UpdateAsync(role);
     }
 
-    public async Task DeleteRoleAsync(ApplicationRole role)
+    public async Task<IdentityResult> DeleteRoleAsync(ApplicationRole role)
     {
-        await _roleManager.DeleteAsync(role);
+        return await _roleManager.DeleteAsync(role);
     }
 }

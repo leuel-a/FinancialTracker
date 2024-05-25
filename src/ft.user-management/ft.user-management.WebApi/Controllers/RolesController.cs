@@ -43,18 +43,19 @@ public class RolesController : ControllerBase
 
         if (response.Success == false)
             return BadRequest(new { response.Message, response.Errors });
-        return Ok(new { response.Message, Role = response.Resource });
+        return Ok(response.Resource);
     }
 
     /// <summary>
     /// Updates an existing role.
     /// </summary>
+    /// <param name="id">The id of the role to be updated</param>
     /// <param name="updateRoleDto">The role data transfer object containing the updated details of the role.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains the action result.</returns>
-    [HttpPut]
-    public async Task<IActionResult> UpdateRole([FromBody] UpdateRoleDto updateRoleDto)
+    [HttpPut("{id:int}")]
+    public async Task<IActionResult> UpdateRole(int id, [FromBody] UpdateRoleDto updateRoleDto)
     {
-        var response = await _mediator.Send(new UpdateRoleCommand() { RoleDto = updateRoleDto });
+        var response = await _mediator.Send(new UpdateRoleCommand() { RoleDto = updateRoleDto, Id = id });
 
         if (response.Success == false)
             return BadRequest(new { response.Message, response.Errors });

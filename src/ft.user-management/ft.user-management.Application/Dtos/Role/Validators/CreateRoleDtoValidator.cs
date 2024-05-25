@@ -11,6 +11,6 @@ public class CreateRoleDtoValidator : AbstractValidator<CreateRoleDto>
             .MaximumLength(10).WithMessage("{PropertyName} must not exceed 10 characters.");
 
         RuleFor(p => p.Description)
-            .NotEmpty().WithMessage("{PropertyName can not be empty.}");
+            .NotEmpty().WithMessage("{PropertyName} can not be empty.");
     }
 }

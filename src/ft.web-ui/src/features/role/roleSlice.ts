@@ -9,9 +9,12 @@ const roleApi = createApi({
     getRoles: builder.query<Role[], void>({ query: () => '/api/roles' }),
     createRole: builder.mutation({
       query: (role: Partial<Role>) => ({ url: '/api/roles', method: 'POST', body: role })
+    }),
+    deleteRole: builder.mutation({
+      query: id => ({ url: `/api/roles/${id}`, method: 'DELETE' })
     })
   })
 })
 
-export const { useGetRolesQuery, useCreateRoleMutation } = roleApi
+export const { useGetRolesQuery, useCreateRoleMutation, useDeleteRoleMutation } = roleApi
 export default roleApi
