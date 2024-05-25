@@ -135,4 +135,24 @@ public class TokenService : ITokenService
 
         return principal;
     }
+
+    public bool ValidToken(string accessToken)
+    {
+        try {
+            var tokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateAudience = true,
+                ValidateIssuer = true,
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_accessTokenKey)),
+                ValidateLifetime = true,
+                ValidAudience = _audience,
+                ValidIssuer = _issuer
+            };
+            _tokenHandler.ValidateToken(accessToken, tokenValidationParameters, out _);
+            return true;
+        } catch {
+            return false;
+        }
+    }
 }

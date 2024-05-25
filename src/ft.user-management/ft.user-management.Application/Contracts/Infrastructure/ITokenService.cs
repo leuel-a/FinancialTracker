@@ -9,4 +9,5 @@ public interface ITokenService
    int? GetUserIdFromToken(string token);
    bool IsTokenExpired(string token);
    Task<string?> RefreshAccessToken(string accessToken, string refreshToken);
+   bool ValidToken(string token);
 }
