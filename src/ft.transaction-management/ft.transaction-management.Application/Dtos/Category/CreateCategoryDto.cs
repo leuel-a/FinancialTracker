@@ -1,6 +1,5 @@
 namespace ft.transaction_management.Application.Dtos.Category;
 
-public class CreateCategoryDto
+public class CreateCategoryDto : BaseCategoryDto
 {
-    
 }

@@ -5,16 +5,13 @@ namespace ft.transaction_management.Domain.Entities;
 
 public class Transaction : BaseDomainEntity
 {
-    public decimal Amount { get; set; }
+    public string? Type { get; set; }
+    public DateTime Date { get; set; }
+    public double Amount { get; set; }
     public string? Description { get; set; }
-    public DateTime DateOccured { get; set; }
-    public string? ReceiptImage { get; set; }
-    
-    // Foreign Keys for the Navigation Properties
-    public Guid EmployeeId { get; set; }
-    public Guid CategoryId { get; set; }
-    
-    // Navigation Properties
+
+    public int? CategoryId { get; set; }
+
+    // Navigation property for a transaction
     public Category? Category { get; set; }
-    public Employee? Employee { get; set; } 
 }

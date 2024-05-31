@@ -1,6 +1,6 @@
-namespace ft.transaction_management.Application.Dtos.Transaction.Validators;
+namespace ft.transaction_management.Application.Dtos.Transaction;
 
-public class CreateTransactionDto
+public class CreateTransactionDto : BaseTransactionDto
 {
-    
+    public int CategoryId { get; set; }
 }

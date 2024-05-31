@@ -17,10 +17,4 @@
       <ProjectReference Include="..\ft.transaction-management.Domain\ft.transaction-management.Domain.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Features\Category\Handlers\Commands\" />
-      <Folder Include="Features\Category\Requests\Commands\" />
-      <Folder Include="Features\Employee\" />
-    </ItemGroup>
-
 </Project>
