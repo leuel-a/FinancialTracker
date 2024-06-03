@@ -1,3 +1,4 @@
+using System;
 using MediatR;
 using AutoMapper;
 using System.Linq;
@@ -8,7 +9,6 @@ using ft.transaction_management.Application.Responses;
 using ft.transaction_management.Application.Dtos.Category;
 using ft.transaction_management.Application.Contracts.Persistence;
 using ft.transaction_management.Application.Features.Category.Requests.Queries;
-using System;
 
 namespace ft.transaction_management.Application.Features.Category.Handlers.Queries;
 
@@ -37,18 +37,21 @@ public class GetAllCategoriesQueryHandler : IRequestHandler<GetAllCategoriesQuer
             return response;
         }
 
-        var total = await _categoriesRepository.CountAsync();
+        var totalCount = await _categoriesRepository.CountAsync();
         var pageSize = query.GetAllCategoriesDto.PageSize ?? 10;
         var currentPage = query.GetAllCategoriesDto.CurrentPage ?? 1;
-        var totalPages = (int)Math.Ceiling((double)total / pageSize);
+        var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
 
         var categories = await _categoriesRepository.GetAllAsyncPaginated(currentPage, pageSize);
 
-        // Get the categories
-        // var categories = await _categoriesRepository.GetAllAsync();
-        // var categories = await _categoriesRepository.GetAllAsyncPaginated();
-        // response.Succeeded = true;
-        // response.Resources = _mapper.Map<IReadOnlyList<ReadCategoryDto>>(categories);
+        // TODO: Find a better way to do this
+        response.Succeeded = true;
+        response.CurrentPage = currentPage;
+        response.TotalPages = totalPages;
+        response.TotalCount = totalCount;
+        response.PreviousPage = currentPage > 1 ? currentPage - 1 : null;
+        response.NextPage = currentPage < totalPages ? currentPage + 1 : null;
+        response.Data = _mapper.Map<IReadOnlyList<ReadCategoryDto>>(categories);
         return response;
     }
 }
