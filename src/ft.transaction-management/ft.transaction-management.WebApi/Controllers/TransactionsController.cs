@@ -18,6 +18,32 @@ public class TransactionsController : ControllerBase
     }
 
     /// <summary>
+    /// Gets all transactions
+    /// </summary>
+    /// <param name="currentPage">The current page for the query. Defaults to 1. </param>
+    /// <param name="pageSize">The page size for the query. Defaults to 10. </param>
+    /// <returns>An <see cref="IActionResult"/> containing the hypermedia paginated response.</returns>
+    [HttpGet]
+    public async Task<IActionResult> GetAllTransactions([FromQuery] int? pageSize, [FromQuery] int? currentPage)
+    {
+        var response = await _mediator.Send(new GetAllTransactionsQuery() { PageSize = pageSize, CurrentPage = currentPage });
+
+        if (response.Succeeded == false)
+            return BadRequest(new { response.Message });
+
+        var value = new
+        {
+            response.Data,
+            response.PageSize,
+            response.CurrentPage,
+            response.TotalCount,
+            response.NextPage,
+            response.PreviousPage
+        };
+        return Ok(value);
+    }
+
+    /// <summary>
     /// Gets a transaction by its identifier.
     /// </summary>
     /// <param name="id">The identifier of the transaction.</param>
@@ -93,7 +119,7 @@ public class TransactionsController : ControllerBase
     {
         transactionsByCategoryDto.CategoryId = categoryId;
         var response = await _mediator.Send(new GetTransactionsByCategoryQuery()
-            { TransactionByCategoryDto = transactionsByCategoryDto });
+        { TransactionByCategoryDto = transactionsByCategoryDto });
 
         if (response.Succeeded == false)
             return BadRequest(new { response.Message, Errors = response.ErrorMessages });

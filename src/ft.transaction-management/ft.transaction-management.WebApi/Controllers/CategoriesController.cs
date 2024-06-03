@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using ft.transaction_management.Application.Dtos.Category;
 using ft.transaction_management.Application.Features.Category.Requests.Queries;
 using ft.transaction_management.Application.Features.Category.Requests.Commands;
+using AutoMapper.Configuration.Annotations;
+using ft.transaction_management.Application;
 
 namespace ft.transaction_management.WebApi.Controllers;
 
@@ -31,7 +33,7 @@ public class CategoriesController : ControllerBase
 
         if (response.Succeeded == false)
             return BadRequest(new { response.Message });
-        return Ok(new { response.Message });
+        return Ok(response.Resource);
     }
 
     /// <summary>
@@ -94,12 +96,15 @@ public class CategoriesController : ControllerBase
     /// <response code="200">Returns the list of categories.</response>
     /// <response code="400">If there was an error retrieving the categories.</response>
     [HttpGet]
-    public async Task<IActionResult> GetAllCategories()
+    public async Task<IActionResult> GetAllCategories([FromQuery] int? pageSize, [FromQuery] int? currentPage)
     {
-        var response = await _mediator.Send(new GetAllCategoriesQuery());
+        var getAllCategoriesDto = new GetAllCategoriesDto { PageSize = pageSize, CurrentPage = currentPage };
+        var response = await _mediator.Send(new GetAllCategoriesQuery() { GetAllCategoriesDto = getAllCategoriesDto });
 
         if (response.Succeeded == false)
-            return BadRequest(new { response.Message });
-        return Ok(response.Resources);
+            return BadRequest(new { response.Message, Errors = response.ErrorMessages });
+
+        var value = new { response.Data, response.PageSize, response.CurrentPage, response.TotalCount, response.NextPage, response.PreviousPage };
+        return Ok(value);
     }
 }
