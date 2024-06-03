@@ -4,6 +4,7 @@ using MediatR;
 
 namespace ft.transaction_management.Application.Features.Category.Requests.Queries;
 
-public class GetAllCategoriesRequest : IRequest<ReadResourceResponse<ReadCategoryDto>>
+public class GetAllCategoriesQuery : IRequest<PaginatedResponse<ReadCategoryDto>>
 {
+    public GetAllCategoriesDto GetAllCategoriesDto { get; set; }
 }

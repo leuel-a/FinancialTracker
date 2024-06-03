@@ -1,11 +1,11 @@
 using System;
 using System.Linq;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using ft.transaction_management.Application.Contracts.Persistence;
-using ft.transaction_management.Application.Models;
-using ft.transaction_management.Domain.Common;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using ft.transaction_management.Domain.Common;
+using ft.transaction_management.Application.Models;
+using ft.transaction_management.Application.Contracts.Persistence;
 
 namespace ft.transaction_management.Persistence.Repositories;
 
@@ -13,7 +13,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseDomainEn
 {
     private readonly ApplicationDbContext _context;
 
-    public GenericRepository(ApplicationDbContext context)
+    protected GenericRepository(ApplicationDbContext context)
     {
         _context = context;
     }
@@ -38,22 +38,13 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseDomainEn
         var operationResult = new DatabaseOperationResult();
         try
         {
-            var result = await _context.AddAsync(entity);
+            await _context.AddAsync(entity);
             await _context.SaveChangesAsync();
 
-            if (result.State == EntityState.Added)
-            {
-                operationResult.Succeeded = true;
-                operationResult.Message = "Entity added successfully.";
-            }
-            else
-            {
-                operationResult.Succeeded = false;
-                operationResult.Message = "Entity not added.";
+            // The only way the above operation might be unsuccessful is if it throws an exception
+            operationResult.Succeeded = true;
+            operationResult.Message = $"{typeof(T)} is successfully added.";
 
-                return operationResult;
-            }
-            
             return operationResult;
         }
         catch (Exception e)
@@ -68,26 +59,15 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseDomainEn
     public async Task<DatabaseOperationResult> UpdateAsync(T entity)
     {
         var operationResult = new DatabaseOperationResult();
-        
+
         try
         {
-            // TODO: There must be a better way to do this
-            var originalState = _context.Entry(entity).State;
-            
             _context.Entry(entity).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             
-            var currentState = _context.Entry(entity).State;
-            if (originalState != currentState)
-            {
-                operationResult.Succeeded = true;
-                operationResult.Message = "Entity updated successfully.";
-            }
-            else
-            {
-                operationResult.Succeeded = false;
-                operationResult.Message = "Entity not updated.";
-            }
+            // The only way the above might be unsuccessful is if it throws an exception
+            operationResult.Succeeded = true;
+            operationResult.Message = $"{typeof(T)} is successfully updated.";
 
             return operationResult;
         }
@@ -95,6 +75,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseDomainEn
         {
             operationResult.Succeeded = false;
             operationResult.Message = e.Message;
+            
             return operationResult;
         }
     }
@@ -102,22 +83,16 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseDomainEn
     public async Task<DatabaseOperationResult> DeleteAsync(T entity)
     {
         var operationResult = new DatabaseOperationResult();
-        
+
         try
         {
-            var result = _context.Remove(entity);
+            _context.Remove(entity);
             await _context.SaveChangesAsync();
 
-            if (result.State == EntityState.Deleted)
-            {
-                operationResult.Succeeded = false;
-                operationResult.Message = "Entity deleted successfully.";
-            }
-            else
-            {
-                operationResult.Succeeded = false;
-                operationResult.Message = "Entity not deleted.";
-            }
+            // The only way the above operation might fail is if it throws an exception
+            // it is properly handled in the catch statement below
+            operationResult.Succeeded = true;
+            operationResult.Message = $"{typeof(T)} has successfully been deleted";
 
             return operationResult;
         }
@@ -128,5 +103,10 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseDomainEn
 
             return operationResult;
         }
+    }
+
+    public async Task<int> CountAsync()
+    {
+        return await _context.Set<T>().CountAsync();
     }
 }

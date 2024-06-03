@@ -25,7 +25,7 @@ public class TransactionsController : ControllerBase
     [HttpGet("{id:int}", Name = "GetTransactionById")]
     public async Task<IActionResult> GetTransactionById(int id)
     {
-        var response = await _mediator.Send(new GetSingleTransactionRequest() { Id = id });
+        var response = await _mediator.Send(new GetSingleTransactionQuery() { Id = id });
 
         if (response.Succeeded == false)
             return BadRequest(new { response.Message });
@@ -56,6 +56,7 @@ public class TransactionsController : ControllerBase
     [HttpPut("{id:int}")]
     public async Task<IActionResult> UpdateTransaction(int id, [FromBody] UpdateTransactionDto transactionDto)
     {
+        transactionDto.Id = id;
         var response = await _mediator.Send(new UpdateTransactionCommand() { TransactionDto = transactionDto });
 
         if (response.Succeeded == false)
@@ -76,5 +77,37 @@ public class TransactionsController : ControllerBase
         if (response.Succeeded == false)
             return BadRequest(new { response.Message });
         return Ok(new { response.Message });
+    }
+
+    /// <summary>
+    /// Gets transactions with the specified category.
+    /// </summary>
+    /// <param name="categoryId">The identifier of the category to be queried.</param>
+    /// <param name="transactionsByCategoryDto">Information about how to get the transactions,
+    /// like page size and current page.</param>
+    /// <returns>An <see cref="IActionResult"/> containing the result of the query operation.</returns>
+    [HttpGet("categories/{categoryId:int}")]
+    public async Task<IActionResult> GetTransactionsByCategory(
+        int categoryId,
+        [FromBody] GetTransactionsByCategoryDto transactionsByCategoryDto)
+    {
+        transactionsByCategoryDto.CategoryId = categoryId;
+        var response = await _mediator.Send(new GetTransactionsByCategoryQuery()
+            { TransactionByCategoryDto = transactionsByCategoryDto });
+
+        if (response.Succeeded == false)
+            return BadRequest(new { response.Message, Errors = response.ErrorMessages });
+
+        var value = new
+        {
+            response.PageSize,
+            response.NextPage,
+            response.PreviousPage,
+            response.CurrentPage,
+            response.TotalPages,
+            response.TotalCount,
+            Transactions = response.Data
+        };
+        return Ok(value);
     }
 }

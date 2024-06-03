@@ -10,22 +10,22 @@ using MediatR;
 namespace ft.transaction_management.Application.Features.Transaction.Handlers.Queries;
 
 public class
-    GetSingleTransactionRequestHandler : IRequestHandler<GetSingleTransactionRequest,
+    GetSingleTransactionQueryHandler : IRequestHandler<GetSingleTransactionQuery,
     ReadResourceResponse<ReadTransactionDto>>
 {
     private readonly IMapper _mapper;
     private readonly ITransactionsRepository _transactionsRepository;
 
-    public GetSingleTransactionRequestHandler(IMapper mapper, ITransactionsRepository transactionsRepository)
+    public GetSingleTransactionQueryHandler(IMapper mapper, ITransactionsRepository transactionsRepository)
     {
         _mapper = mapper;
         _transactionsRepository = transactionsRepository;
     }
     
-    public async Task<ReadResourceResponse<ReadTransactionDto>> Handle(GetSingleTransactionRequest request, CancellationToken cancellationToken)
+    public async Task<ReadResourceResponse<ReadTransactionDto>> Handle(GetSingleTransactionQuery query, CancellationToken cancellationToken)
     {
         var response = new ReadResourceResponse<ReadTransactionDto>();
-        var transaction = await _transactionsRepository.GetByIdAsync(request.Id);
+        var transaction = await _transactionsRepository.GetByIdAsync(query.Id);
 
         if (transaction == null)
         {

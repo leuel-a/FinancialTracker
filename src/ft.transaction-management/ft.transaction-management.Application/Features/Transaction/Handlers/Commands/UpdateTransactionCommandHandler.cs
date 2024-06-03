@@ -12,19 +12,22 @@ namespace ft.transaction_management.Application.Features.Transaction.Handlers.Co
 
 public class UpdateTransactionCommandHandler : IRequestHandler<UpdateTransactionCommand, BaseCommandResponse>
 {
-    private readonly ITransactionsRepository _transactionsRepository;
     private readonly IMapper _mapper;
+    private readonly ICategoriesRepository _categoriesRepository;
+    private readonly ITransactionsRepository _transactionsRepository;
 
-    public UpdateTransactionCommandHandler(ITransactionsRepository transactionsRepository, IMapper mapper)
+    public UpdateTransactionCommandHandler(ITransactionsRepository transactionsRepository, IMapper mapper,
+        ICategoriesRepository categoriesRepository)
     {
         _mapper = mapper;
+        _categoriesRepository = categoriesRepository;
         _transactionsRepository = transactionsRepository;
     }
 
     public async Task<BaseCommandResponse> Handle(UpdateTransactionCommand request, CancellationToken cancellationToken)
     {
         var response = new BaseCommandResponse();
-        var validator = new UpdateTransactionDtoValidator(_transactionsRepository);
+        var validator = new UpdateTransactionDtoValidator(_transactionsRepository, _categoriesRepository);
         var validationResult = await validator.ValidateAsync(request.TransactionDto!, cancellationToken);
 
         if (validationResult.IsValid == false)

@@ -27,7 +27,7 @@ public class CategoriesController : ControllerBase
     [HttpGet("{id:int}", Name = "GetCategoryById")]
     public async Task<IActionResult> GetCategoryById(int id)
     {
-        var response = await _mediator.Send(new GetSingleCategoryRequest() { Id = id });
+        var response = await _mediator.Send(new GetSingleCategoryQuery() { Id = id });
 
         if (response.Succeeded == false)
             return BadRequest(new { response.Message });
@@ -96,7 +96,7 @@ public class CategoriesController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAllCategories()
     {
-        var response = await _mediator.Send(new GetAllCategoriesRequest());
+        var response = await _mediator.Send(new GetAllCategoriesQuery());
 
         if (response.Succeeded == false)
             return BadRequest(new { response.Message });
