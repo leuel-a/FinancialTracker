@@ -2,7 +2,7 @@ import { createApi } from '@reduxjs/toolkit/query/react'
 import { baseQueryWithAuth } from '@/lib/customBaseQuery'
 import { Role } from '@/types/role'
 
-const roleApi = createApi({
+export const roleApi = createApi({
   reducerPath: 'roleApi',
   baseQuery: baseQueryWithAuth,
   endpoints: builder => ({
@@ -17,4 +17,4 @@ const roleApi = createApi({
 })
 
 export const { useGetRolesQuery, useCreateRoleMutation, useDeleteRoleMutation } = roleApi
-export default roleApi
+

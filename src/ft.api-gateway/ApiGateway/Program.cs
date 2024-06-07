@@ -1,3 +1,4 @@
+using System;
 using System.Text;
 using Ocelot.Middleware;
 using Ocelot.DependencyInjection;
@@ -59,6 +60,16 @@ app.UseAuthorization();
 
 app.UseCors("CorsPolicy");
 app.UseHttpsRedirection();
-await app.UseOcelot();
+
+var ocelotConfiguration = new OcelotPipelineConfiguration
+{
+    AuthenticationMiddleware = async (context, next) =>
+    {
+        Console.WriteLine(context.Request.Headers);
+        await next.Invoke();
+    }
+};  
+
+await app.UseOcelot(ocelotConfiguration);
 
 app.Run();

@@ -9,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using ft.user_management.Persistence;
 using ft.user_management.Application;
 using ft.user_management.Infrastructure;
+using ft.user_management.Infrastructure.Services;
 using ft.user_management.WebApi.Middlewares;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -124,5 +125,7 @@ app.UseCors("ApiGatewayPolicy");
 app.UseHttpsRedirection();
 
 app.MapControllers();
+
+app.MapGet("/api/users/status", () => "User Management API is running!");
 
 app.Run();

@@ -27,7 +27,7 @@ public class GetAllCategoriesQueryHandler : IRequestHandler<GetAllCategoriesQuer
     {
         var response = new PaginatedResponse<ReadCategoryDto>();
         var validator = new GetAllCategoriesDtoValidator();
-        var validationResult = await validator.ValidateAsync(query.GetAllCategoriesDto, cancellationToken);
+        var validationResult = await validator.ValidateAsync(query.GetAllCategoriesDto!, cancellationToken);
 
         if (validationResult.IsValid == false)
         {
@@ -37,21 +37,25 @@ public class GetAllCategoriesQueryHandler : IRequestHandler<GetAllCategoriesQuer
             return response;
         }
 
-        var totalCount = await _categoriesRepository.CountAsync();
-        var pageSize = query.GetAllCategoriesDto.PageSize ?? 10;
+        var pageSize = query.GetAllCategoriesDto!.PageSize ?? 10;
         var currentPage = query.GetAllCategoriesDto.CurrentPage ?? 1;
+
+        // Get the categories from the database
+        var categoriesQuery = _categoriesRepository.AsQueryable();
+        var categories = await _categoriesRepository.GetAllAsyncPaginated(categoriesQuery, currentPage, pageSize);
+
+        var totalCount = await _categoriesRepository.CountAsync(categoriesQuery);
         var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
 
-        var categories = await _categoriesRepository.GetAllAsyncPaginated(currentPage, pageSize);
-
-        // TODO: Find a better way to do this
         response.Succeeded = true;
-        response.CurrentPage = currentPage;
+        response.PageSize = pageSize;
         response.TotalPages = totalPages;
         response.TotalCount = totalCount;
+        response.CurrentPage = currentPage;
         response.PreviousPage = currentPage > 1 ? currentPage - 1 : null;
         response.NextPage = currentPage < totalPages ? currentPage + 1 : null;
         response.Data = _mapper.Map<IReadOnlyList<ReadCategoryDto>>(categories);
+
         return response;
     }
 }

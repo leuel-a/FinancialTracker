@@ -18,8 +18,8 @@ public class TransactionsRepository : GenericRepository<Transaction>, ITransacti
 
     public async Task<Transaction> GetTransactionWithCategory(int transactionId)
     {
-        return (await _context.Transactions.Include(t => t.CategoryId)
-            .FirstOrDefaultAsync(t => t.CategoryId == transactionId))!;
+        return (await _context.Transactions.Include(t => t.Category)
+            .FirstOrDefaultAsync(t => t.Id == transactionId))!;
     }
 
     public async Task<IReadOnlyList<Transaction>> GetTransactionByCategory(int categoryId, int pageSize,
@@ -32,5 +32,10 @@ public class TransactionsRepository : GenericRepository<Transaction>, ITransacti
     public async Task<int> CountTransactionsByCategory(int categoryId)
     {
         return await _context.Transactions.CountAsync(t => t.CategoryId == categoryId);
+    }
+
+    public async Task<IReadOnlyList<Transaction>> GetAllTransactionsWithCategory(IQueryable<Transaction> query, int pageSize, int currentPage)
+    {
+        return await query.Include(t => t.Category).AsNoTracking().Skip((currentPage - 1) * pageSize).Take(pageSize).ToListAsync();
     }
 }

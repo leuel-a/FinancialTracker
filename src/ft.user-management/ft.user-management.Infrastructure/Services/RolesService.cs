@@ -1,7 +1,9 @@
-using ft.user_management.Application.Contracts.Infrastructure;
-using ft.user_management.Domain.Entities;
-using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using ft.user_management.Domain.Entities;
+using ft.user_management.Application.Contracts.Infrastructure;
 
 namespace ft.user_management.Infrastructure.Services;
 

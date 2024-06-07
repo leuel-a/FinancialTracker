@@ -1,7 +1,10 @@
 import Cookie from 'js-cookie'
-import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios, { AxiosError, AxiosResponse } from 'axios'
-import { ValidationError, ValidationSuccess } from '@/types/validation'
+import { createAsyncThunk } from '@reduxjs/toolkit'
+
+export type FetchError = {
+  data: { message: string; errors: string[] | null }
+}
 
 type LoginResponse = {
   accessToken: string
@@ -17,13 +20,16 @@ type LoginRequest = {
 export const loginUser = createAsyncThunk<
   { message: string },
   LoginRequest,
-  { rejectValue: ValidationError }
+  { rejectValue: FetchError }
 >('auth/loginUser', async ({ email, password }, thunkAPI) => {
   try {
-    const response: AxiosResponse<LoginResponse> = await axios.post('http://localhost:5000/api/auth/login', {
-      email,
-      password
-    })
+    const response: AxiosResponse<LoginResponse> = await axios.post(
+      'http://localhost:5000/api/auth/login',
+      {
+        email,
+        password
+      }
+    )
     const { accessToken, refreshToken } = response.data
 
     Cookie.set('accessToken', accessToken)
@@ -31,10 +37,29 @@ export const loginUser = createAsyncThunk<
 
     return { message: 'Login Success' }
   } catch (e) {
-    const errorResponse = e as AxiosError<ValidationError>
-    const { response } = errorResponse
+    if (axios.isAxiosError(e) === true) {
+      if (!e.response) {
+        // this conditional is to handle if there is no network,
+        // a network error eventhough is an axios error, must be
+        // handled gracefully
+        return thunkAPI.rejectWithValue({
+          data: {
+            message: "An unexpected error has occured please try again",
+            errors: null
+          }
+        })
+      }
 
-    const error = response?.data as ValidationError
-    return thunkAPI.rejectWithValue(error)
+      return thunkAPI.rejectWithValue({
+        data: e.response?.data
+      })
+    }
+
+    return thunkAPI.rejectWithValue({
+      data: {
+        message: 'An unexpected error has occured please try again.',
+        errors: null
+      }
+    })
   }
 })

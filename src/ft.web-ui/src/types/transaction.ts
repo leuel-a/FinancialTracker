@@ -1,20 +1,17 @@
+import { Category } from './categories'
+
 export type Transaction = {
-  transactionId: string;
-  customerId: string;
-  transactionType: 'sale' | 'purchase' | 'expense' | 'refund';
-  amount: number;
-  currency: string;
-  transactionDate: Date;
-  paymentMethod: 'cash' | 'credit card' | 'bank transfer' | 'online payment';
-  status: 'pending' | 'completed' | 'failed';
-  productId?: string;
-  quantity?: number;
-  unitPrice?: number;
-  vendorId?: string;
-  invoiceNumber?: string;
-  taxAmount?: number;
-  discounts?: number;
-  shippingCost?: number;
-  employeeId?: string;
-  location?: string;
-};
+  id: number
+  date: Date
+  type: string
+  amount: number
+  status: string
+  region?: string | null
+  description?: string | null
+  paymentMethod?: string | null
+  quantity?: number
+  unitPrice?: number
+  accountNumber?: string
+  categoryId: number | null
+  category: Category | null
+}

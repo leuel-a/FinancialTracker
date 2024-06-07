@@ -9,9 +9,9 @@ public class GetAllCategoriesDtoValidator : AbstractValidator<GetAllCategoriesDt
     public GetAllCategoriesDtoValidator()
     {
         RuleFor(p => p.CurrentPage)
-            .GreaterThan(0).WithMessage("{PropertyName} must be greater than {ComparisonValue}");
+            .GreaterThan(0).WithMessage("{PropertyName} must be greater than {ComparisonValue}").When(p => p.CurrentPage.HasValue);
 
         RuleFor(p => p.PageSize)
-            .GreaterThanOrEqualTo(1).WithMessage("{PropertyName} must be greater than or equal to {ComparisonValue}");
+            .GreaterThanOrEqualTo(1).WithMessage("{PropertyName} must be greater than or equal to {ComparisonValue}").When(p => p.PageSize.HasValue);
     }
 }

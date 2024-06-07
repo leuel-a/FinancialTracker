@@ -4,6 +4,7 @@ namespace ft.transaction_management.Application.Dtos.Transaction;
 
 public class ReadTransactionDto : BaseTransactionDto
 {
-    public int CategoryId { get; set; }
+    public int Id { get; set; }
+    public int? CategoryId { get; set; }
     public ReadCategoryDto? Category { get; set; }
 }

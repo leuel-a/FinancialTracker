@@ -23,9 +23,10 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseDomainEn
         return await _context.Set<T>().AsNoTracking().ToListAsync();
     }
 
-    public async Task<IReadOnlyList<T>> GetAllAsyncPaginated(int page, int size)
+    public async Task<IReadOnlyList<T>> GetAllAsyncPaginated(IQueryable<T> query,int currentPage, int pageSize)
     {
-        return await _context.Set<T>().AsNoTracking().Skip((page - 1) * size).Take(size).ToListAsync();
+        return await query.Skip((currentPage - 1) * pageSize).AsNoTracking().Take(pageSize).ToListAsync();
+        // return await _context.Set<T>().AsNoTracking().Skip((currentPage - 1) * pageSize).Take(pageSize).ToListAsync();
     }
 
     public async Task<T> GetByIdAsync(int id)
@@ -64,7 +65,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseDomainEn
         {
             _context.Entry(entity).State = EntityState.Modified;
             await _context.SaveChangesAsync();
-            
+
             // The only way the above might be unsuccessful is if it throws an exception
             operationResult.Succeeded = true;
             operationResult.Message = $"{typeof(T)} is successfully updated.";
@@ -75,7 +76,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseDomainEn
         {
             operationResult.Succeeded = false;
             operationResult.Message = e.Message;
-            
+
             return operationResult;
         }
     }
@@ -105,8 +106,13 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseDomainEn
         }
     }
 
-    public async Task<int> CountAsync()
+    public async Task<int> CountAsync(IQueryable<T> query)
     {
-        return await _context.Set<T>().CountAsync();
+        return await query.CountAsync();
+    }
+
+    public IQueryable<T> AsQueryable()
+    {
+        return _context.Set<T>().AsQueryable();
     }
 }

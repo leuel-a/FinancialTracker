@@ -1,11 +1,11 @@
+using MediatR;
+using AutoMapper;
 using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
-using ft.transaction_management.Application.Contracts.Persistence;
-using ft.transaction_management.Application.Dtos.Transaction;
-using ft.transaction_management.Application.Features.Transaction.Requests.Queries;
 using ft.transaction_management.Application.Responses;
-using MediatR;
+using ft.transaction_management.Application.Dtos.Transaction;
+using ft.transaction_management.Application.Contracts.Persistence;
+using ft.transaction_management.Application.Features.Transaction.Requests.Queries;
 
 namespace ft.transaction_management.Application.Features.Transaction.Handlers.Queries;
 
@@ -25,7 +25,7 @@ public class
     public async Task<ReadResourceResponse<ReadTransactionDto>> Handle(GetSingleTransactionQuery query, CancellationToken cancellationToken)
     {
         var response = new ReadResourceResponse<ReadTransactionDto>();
-        var transaction = await _transactionsRepository.GetByIdAsync(query.Id);
+        var transaction = await _transactionsRepository.GetTransactionWithCategory(query.Id);
 
         if (transaction == null)
         {

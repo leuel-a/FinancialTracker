@@ -1,13 +1,47 @@
+'use client'
+
+import * as React from 'react'
+import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
+import TransactionsFilter from './components/TransactionsFilter'
 import PageTitle from '../components/PageTitle'
-import { DataTable, columns } from './data-table'
+import { Button } from '@/components/ui/button'
+import { TransactionDataTable, columns } from './data-table'
+import DatePickerWithRange from '@/app/components/DatePickerWithRange'
+import { useGetAllTransactionsQuery } from '@/features/transaction/transactionSlice'
+import LoadingSpinner from '@/components/LoadingSpinner'
 
-import { transactions } from './data'
+export default function TransactionsPage() {
+  const searchParams = useSearchParams()
+  const { isLoading: loadingT, data: transactions } = useGetAllTransactionsQuery(
+    searchParams.toString()
+  )
 
-export default function AnalysisPage() {
   return (
-    <div className="flex flex-col gap-5">
+    <div className="relative space-y-2">
       <PageTitle title="Transactions" />
-      <DataTable columns={columns} data={[...transactions, ...transactions, ...transactions]} />
+      <div className="flex gap-2">
+        <div className="flex items-center justify-center gap-3">
+          <h3 className="text-sm font-semibold">Date Range</h3>
+          <DatePickerWithRange />
+          <TransactionsFilter />
+        </div>
+      </div>
+      {loadingT ? (
+        <LoadingSpinner />
+      ) : (
+        <>
+          <TransactionDataTable
+            nextPage={transactions?.nextPage}
+            previousPage={transactions?.previousPage}
+            columns={columns}
+            data={transactions?.data || []}
+          />
+          <Link href="/dashboard/transactions/add">
+            <Button className="absolute bottom-3 w-52 bg-zinc-700">Add Transaction</Button>
+          </Link>
+        </>
+      )}
     </div>
   )
 }

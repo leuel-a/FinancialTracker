@@ -10,7 +10,7 @@ const refreshTokenKey = '91b18586f916e8434f36dc778f7e482dda603e72a543fdd28f95172
 
 export default {
   port: 5003,
-  dbUri: 'mongodb://localhost:27017/employee',
+  dbUri: 'mongodb://localhost:27017/FTEmployeeManagementDB',
   accessTokenKey,
   refreshTokenKey,
   accessTokenTTL: '15m',

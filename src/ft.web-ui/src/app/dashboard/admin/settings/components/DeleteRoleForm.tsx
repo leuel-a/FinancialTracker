@@ -14,7 +14,6 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger
 } from '@/components/ui/alert-dialog'
-import LoadingSpinner from '@/components/LoadingSpinner'
 import { useDeleteRoleMutation } from '@/features/role/roleSlice'
 
 interface DeleteRoleFormProps {
@@ -34,7 +33,6 @@ export default function DeleteRoleForm({ role: { id, name } }: DeleteRoleFormPro
 
       // Set the error as a query parameter and redirect back to the roles page
       searchParams.set('error', e.message)
-
       router.push(`/dashboard/admin/settings/roles?${searchParams.toString()}`)
     }
   }

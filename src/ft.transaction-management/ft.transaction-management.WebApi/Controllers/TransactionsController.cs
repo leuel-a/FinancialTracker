@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using ft.transaction_management.Application.Dtos.Transaction;
 using ft.transaction_management.Application.Features.Transaction.Requests.Queries;
 using ft.transaction_management.Application.Features.Transaction.Requests.Commands;
+using ft.transaction_management.Application;
 
 namespace ft.transaction_management.WebApi.Controllers;
 
@@ -24,12 +25,12 @@ public class TransactionsController : ControllerBase
     /// <param name="pageSize">The page size for the query. Defaults to 10. </param>
     /// <returns>An <see cref="IActionResult"/> containing the hypermedia paginated response.</returns>
     [HttpGet]
-    public async Task<IActionResult> GetAllTransactions([FromQuery] int? pageSize, [FromQuery] int? currentPage)
+    public async Task<IActionResult> GetAllTransactions([FromQuery] GetAllTransactionsDto getAllTransactionsDto)
     {
-        var response = await _mediator.Send(new GetAllTransactionsQuery() { PageSize = pageSize, CurrentPage = currentPage });
+        var response = await _mediator.Send(new GetAllTransactionsQuery() { GetAllTransactionsDto = getAllTransactionsDto });
 
         if (response.Succeeded == false)
-            return BadRequest(new { response.Message });
+            return BadRequest(new { response.Message, Errors = response.ErrorMessages });
 
         var value = new
         {
@@ -38,7 +39,8 @@ public class TransactionsController : ControllerBase
             response.CurrentPage,
             response.TotalCount,
             response.NextPage,
-            response.PreviousPage
+            response.PreviousPage,
+            response.TotalPages
         };
         return Ok(value);
     }

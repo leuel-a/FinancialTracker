@@ -13,9 +13,11 @@ public class MappingProfile : Profile
         CreateMap<Category, ReadCategoryDto>().ReverseMap();
         CreateMap<Category, UpdateCategoryDto>().ReverseMap();
         CreateMap<Category, CreateCategoryDto>().ReverseMap();
-        
+
         // Transaction Dto Mappings
-        CreateMap<Transaction, ReadTransactionDto>().ReverseMap();
+        CreateMap<Transaction,ReadTransactionDto>();
+        CreateMap<ReadTransactionDto, Transaction>();
+
         CreateMap<Transaction, CreateTransactionDto>().ReverseMap();
         CreateMap<Transaction, UpdateTransactionDto>().ReverseMap();
     }

@@ -1,5 +1,8 @@
-using ft.user_management.Domain.Entities;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using ft.user_management.Domain.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace ft.user_management.Infrastructure;
@@ -16,7 +19,7 @@ public class UserManagementDbContext : IdentityDbContext<ApplicationUser, Applic
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(UserManagementDbContext).Assembly);
     }
 
-    public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = new CancellationToken())
+    public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = new())
     {
         foreach (var entry in ChangeTracker.Entries<ApplicationUser>())
         {

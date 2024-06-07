@@ -16,11 +16,13 @@ public class
     CreateCommandResponse<ReadTransactionDto>>
 {
     private readonly IMapper _mapper;
+    private readonly ICategoriesRepository _categoriesRepository;
     private readonly ITransactionsRepository _transactionsRepository;
 
-    public CreateTransactionCommandHandler(IMapper mapper, ITransactionsRepository transactionsRepository)
+    public CreateTransactionCommandHandler(IMapper mapper, ITransactionsRepository transactionsRepository, ICategoriesRepository categoriesRepository)
     {
         _mapper = mapper;
+        _categoriesRepository = categoriesRepository;
         _transactionsRepository = transactionsRepository;
     }
 
@@ -28,7 +30,7 @@ public class
         CancellationToken cancellationToken)
     {
         var response = new CreateCommandResponse<ReadTransactionDto>();
-        var validator = new CreateTransactionDtoValidator();
+        var validator = new CreateTransactionDtoValidator(_categoriesRepository);
         var validationResult = await validator.ValidateAsync(request.CreateTransactionDto!, cancellationToken);
 
         if (validationResult.IsValid == false)

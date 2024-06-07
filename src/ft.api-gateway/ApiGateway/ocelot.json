@@ -10,12 +10,8 @@
         }
       ],
       "UpstreamPathTemplate": "/api/users/{everything}",
-      "UpstreamHttpMethod": [
-        "Post",
-        "Get",
-        "Delete",
-        "Put"
-      ],
+      "UpstreamHttpMethod": ["Post", "Get", "Delete", "Put"],
+      "DelegatingHandlers": ["RefreshAccessTokenMiddleware"],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": []
@@ -31,12 +27,7 @@
         }
       ],
       "UpstreamPathTemplate": "/api/auth/{everything}",
-      "UpstreamHttpMethod": [
-        "Get",
-        "Post",
-        "Put",
-        "Delete"
-      ]
+      "UpstreamHttpMethod": ["Get", "Post", "Put", "Delete"]
     },
     {
       "DownstreamPathTemplate": "/api/roles/{everything}",
@@ -48,12 +39,7 @@
         }
       ],
       "UpstreamPathTemplate": "/api/roles/{everything}",
-      "UpstreamHttpMethod": [
-        "Post",
-        "Get",
-        "Delete",
-        "Put"
-      ]
+      "UpstreamHttpMethod": ["Post", "Get", "Delete", "Put"]
     },
     {
       "DownstreamPathTemplate": "/api/employees/{everything}",
@@ -65,16 +51,39 @@
         }
       ],
       "UpstreamPathTemplate": "/api/employees/{everything}",
-      "UpstreamHttpMethod": [
-        "Post",
-        "Get",
-        "Delete",
-        "Put"
-      ],
+      "UpstreamHttpMethod": ["Post", "Get", "Delete", "Put"],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": []
       }
+    },
+    {
+      "DownstreamPathTemplate": "/api/transactions/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5010
+        }
+      ],
+      "UpstreamPathTemplate": "/api/transactions/{everything}",
+      "UpstreamHttpMethod": ["Post", "Get", "Delete", "Put"],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/categories/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5010
+        }
+      ],
+      "UpstreamPathTemplate": "/api/categories/{everything}",
+      "UpstreamHttpMethod": ["Post", "Get", "Delete", "Put"]
     }
   ],
   "GlobalConfiguration": {

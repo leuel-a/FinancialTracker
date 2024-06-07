@@ -1,7 +1,7 @@
 using MediatR;
 using System.Threading.Tasks;
-using ft.user_management.Application.Dtos.Auth;
 using Microsoft.AspNetCore.Mvc;
+using ft.user_management.Application.Dtos.Auth;
 using ft.user_management.Application.Dtos.User;
 using ft.user_management.Application.Features.Auth.Requests.Commands;
 
@@ -35,7 +35,8 @@ public class AuthController : ControllerBase
     }
 
     /// <summary>
-    /// Refresh the access token using the refresh token. If the refresh token is valid, a new access token is issued.
+    /// Refresh the access token using the refresh token. If the refresh token is
+    /// valid, a new access token is issued.
     /// </summary>
     /// <param name="refreshTokenDto">The DTO representing the access token and refresh token.</param>
     /// <returns>A response containing the new access token.</returns>
@@ -48,7 +49,8 @@ public class AuthController : ControllerBase
             { RefreshAccessTokenDto = refreshTokenDto });
 
         if (response.Success == false)
-            return BadRequest(new { response.Message, response.Errors });
-        return Ok(new { AccessToken = response.Resource });
+            return BadRequest(new
+                { response.Message, response.Errors, data = new { AccessToken = response.Resource } });
+        return Ok(new { response.Message, response.Errors, data = new { AccessToken = response.Resource } });
     }
 }
