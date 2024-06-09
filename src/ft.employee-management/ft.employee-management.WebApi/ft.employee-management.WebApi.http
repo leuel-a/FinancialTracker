@@ -1,0 +1,6 @@
+@ft.employee_management.WebApi_HostAddress = http://localhost:5177
+
+GET {{ft.employee_management.WebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
