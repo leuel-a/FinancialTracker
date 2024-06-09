@@ -1,6 +1,5 @@
 namespace ft.employee_management.Application.Dtos.Employee;
 
-public class CreateEmployeeDto
+public class CreateEmployeeDto : BaseEmployeeDto
 {
-    
 }
