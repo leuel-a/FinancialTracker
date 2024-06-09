@@ -8,7 +8,8 @@ import {
   ChevronLeft,
   Settings,
   LogOut,
-  LucideProps
+  LucideProps,
+FileBarChart 
 } from 'lucide-react'
 
 type Link = {
@@ -41,10 +42,10 @@ const topLinks: Link[] = [
     href: '/dashboard/calendar'
   },
   {
-    title: 'Analysis',
-    icon: Activity,
+    title: 'Reports',
+    icon: FileBarChart,
     variant: 'ghost',
-    href: '/dashboard/analysis'
+    href: '/dashboard/reports'
   }
 ]
 
@@ -77,10 +78,10 @@ const adminTopLinks: Link[] = [
     href: '/dashboard/calendar'
   },
   {
-    title: 'Analysis',
-    icon: Activity,
+    title: 'Reports',
+    icon: FileBarChart,
     variant: 'ghost',
-    href: '/dashboard/analysis'
+    href: '/dashboard/reports'
   },
   {
     title: 'Employees',

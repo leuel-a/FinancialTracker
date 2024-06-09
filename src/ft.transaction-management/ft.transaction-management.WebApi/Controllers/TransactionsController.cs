@@ -27,7 +27,8 @@ public class TransactionsController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAllTransactions([FromQuery] GetAllTransactionsDto getAllTransactionsDto)
     {
-        var response = await _mediator.Send(new GetAllTransactionsQuery() { GetAllTransactionsDto = getAllTransactionsDto });
+        var response = await _mediator.Send(new GetAllTransactionsQuery()
+            { GetAllTransactionsDto = getAllTransactionsDto });
 
         if (response.Succeeded == false)
             return BadRequest(new { response.Message, Errors = response.ErrorMessages });
@@ -121,7 +122,7 @@ public class TransactionsController : ControllerBase
     {
         transactionsByCategoryDto.CategoryId = categoryId;
         var response = await _mediator.Send(new GetTransactionsByCategoryQuery()
-        { TransactionByCategoryDto = transactionsByCategoryDto });
+            { TransactionByCategoryDto = transactionsByCategoryDto });
 
         if (response.Succeeded == false)
             return BadRequest(new { response.Message, Errors = response.ErrorMessages });
@@ -137,5 +138,61 @@ public class TransactionsController : ControllerBase
             Transactions = response.Data
         };
         return Ok(value);
+    }
+
+    /// <summary>
+    /// Gets the summary of transactions for each month of a specified year.
+    /// </summary>
+    /// <param name="year">The year for which the transaction summary is to be retrieved.</param>
+    /// <returns>An IActionResult containing the monthly transaction summaries for the specified year.</returns>
+    [HttpGet("year/{year:int}")]
+    public async Task<IActionResult> GetTransactionsByMonthForYear(int year)
+    {
+        var response = await _mediator.Send(new GetTransactionsSummaryForSingleYearQuery()
+            { GetTransactionsByMonthForYearDto = new GetTransactionsSummaryDto() { Year = year } });
+
+        if (response.Succeeded == false)
+            return BadRequest(new { response.Message, Errors = response.Errors });
+
+        return Ok(response.MonthlySummary);
+    }
+
+    /// <summary>
+    /// Gets the summary of transactions for a specific month of a specified year.
+    /// </summary>
+    /// <param name="year">The year for which the transaction summary is to be retrieved.</param>
+    /// <param name="month">The month for which the transaction summary is to be retrieved.</param>
+    /// <returns>An IActionResult containing the transaction summary for the specified month and year.</returns>
+    [HttpGet("year/{year:int}/month/{month:int}")]
+    public async Task<IActionResult> GetTransactionSummaryForSingleMonth(int year, int month)
+    {
+        var response = await _mediator.Send(new GetTransactionsSummaryForSingleMonthQuery()
+        {
+            GetTransactionsSummaryDto = new GetTransactionsSummaryDto() { Year = year, Month = month }
+        });
+
+        if (response.Succeeded == false)
+            return BadRequest(new { response.Message, response.Errors });
+        return Ok(new { response.Summary });
+    }
+    
+    /// <summary>
+    ///  Gets the summary of transactions for a specific day of a specific year
+    /// </summary>
+    /// <param name="year">The year for which the transaction summary is to be retrieved.</param>
+    /// <param name="month">The month for which the transaction summary is to be retrieved.</param>
+    /// <param name="day">The day for which the transaction summary is to be retrieved.</param>
+    /// <returns>An IActionResult containing the transaction summary for the specified day, month and year.</returns>
+    [HttpGet("year/{year:int}/month/{month:int}/day/{day:int}")]
+    public async Task<IActionResult> GetTransactionsSummaryForSingleDay(int year, int month, int day)
+    {
+        var response = await _mediator.Send(new GetTransactionsSummaryForSingleDayQuery()
+        {
+            GetTransactionsSummaryDto = new GetTransactionsSummaryDto() { Year = year, Month = month, Day = day }
+        });
+
+        if (response.Succeeded == false)
+            return BadRequest(new { response.ErrorMessage, response.Errors });
+        return Ok(new { response.TotalAmount, response.Income, response.Expense });
     }
 }

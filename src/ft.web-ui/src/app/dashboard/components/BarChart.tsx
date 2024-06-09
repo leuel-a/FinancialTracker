@@ -1,33 +1,31 @@
 'use client'
 
 import React from 'react'
-import { ResponsiveContainer, BarChart as BarGraph, XAxis, YAxis, Bar } from 'recharts'
+import {months} from '@/types/transaction'
+import LoadingSpinner from '@/components/LoadingSpinner'
+import { Bar, BarChart as BarGraph, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 
-type Props = {}
+import { useGetTransactionSummaryForYearQuery } from '@/features/transaction/transactionSlice'
 
-const data = [
-  { name: 'Jan', total: Math.floor(Math.random() * 1000) },
-  { name: 'Feb', total: Math.floor(Math.random() * 1000) },
-  { name: 'Mar', total: Math.floor(Math.random() * 1000) },
-  { name: 'Apr', total: Math.floor(Math.random() * 1000) },
-  { name: 'May', total: Math.floor(Math.random() * 1000) },
-  { name: 'Jun', total: Math.floor(Math.random() * 1000) },
-  { name: 'Jul', total: Math.floor(Math.random() * 1000) },
-  { name: 'Aug', total: Math.floor(Math.random() * 1000) },
-  { name: 'Sep', total: Math.floor(Math.random() * 1000) },
-  { name: 'Oct', total: Math.floor(Math.random() * 1000) },
-  { name: 'Nov', total: Math.floor(Math.random() * 1000) },
-  { name: 'Dec', total: Math.floor(Math.random() * 1000) }
-]
 
-export default function BarChart({}: Props) {
+export default function BarChart({}) {
+  const { isLoading, isError, data: transactions } = useGetTransactionSummaryForYearQuery(2023)
+  
   return (
     <ResponsiveContainer width={'100%'} height={350}>
-      <BarGraph data={data}>
-        <XAxis dataKey={'name'} tickLine={false} axisLine={false} stroke="#888888" fontSize={12} />
-        <YAxis tickLine={false} axisLine={false} stroke="#888888" fontSize={12} tickFormatter={(value) => `$${value}`} />
-        <Bar dataKey={'total'} radius={[4, 4, 0, 0]} />
-      </BarGraph>
+      {isLoading ? <div className="w-full h-full flex items-center justify-center"><LoadingSpinner /></div> : (
+        <BarGraph data={transactions?.map(transaction => ({
+          ...transaction,
+          month: months[transaction.month as number].slice(0, 3)
+        }))}>
+          <XAxis dataKey={'month'} tickLine={false} axisLine={false} stroke="#888888" fontSize={12} />
+          <YAxis tickLine={false} axisLine={false} stroke="#888888" fontSize={12}
+                 tickFormatter={(value) => `$${value}`} />
+          <Tooltip />
+          <Legend />
+          <Bar dataKey={'expense'} radius={[4, 4, 0, 0]} fill="#005377" />
+          <Bar dataKey={'income'} radius={[4, 4, 0, 0]} fill="#06A77D" />
+        </BarGraph>)}
     </ResponsiveContainer>
   )
 }

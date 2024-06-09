@@ -1,10 +1,11 @@
 import React from 'react'
 import PageTitle from './components/PageTitle'
 
+import BarChart from './components/BarChart'
+import { SalesCardProps } from './components/SalesCard'
 import Card, { CardContent, CardProps } from './components/Card'
 import { Activity, CreditCard, DollarSign, Users } from 'lucide-react'
-import BarChart from './components/BarChart'
-import SalesCard, { SalesCardProps } from './components/SalesCard'
+import CashFlowDashboard from '@/app/dashboard/components/CashFlowDashboard'
 
 const cardData: CardProps[] = [
   {
@@ -42,9 +43,15 @@ const salesData: SalesCardProps[] = [
 ]
 
 export default function DashboardPage() {
+  // TODO: get the user from the database and add it to the page header
+  // TODO: refactor the cards that are going to appear in the dashboard, add more meaning to them
+
   return (
     <div className="flex w-full flex-col gap-5">
-      <PageTitle title="Dashboard" />
+      <div>
+        <PageTitle className="font-bold" title="Dashboard" />
+        <p className="text-md font-semibold text-gray-600">Welcome back, Leuel</p>
+      </div>
       <section className="grid w-full grid-cols-1 gap-4 gap-x-8 transition-all sm:grid-cols-2 xl:grid-cols-4">
         {cardData.map((card, index) => (
           <Card key={index} {...card} />
@@ -55,21 +62,25 @@ export default function DashboardPage() {
           <p className="p-4 font-semibold ">Overview</p>
           <BarChart />
         </CardContent>
-        <CardContent className="flex flex-col justify-between gap-4">
-          <section>
-            <p>Recent Sales</p>
-            <p className="text-sm text-gray-400">You have made 256 sales this month.</p>
-          </section>
-          {salesData.map((data, index) => (
-            <SalesCard
-              key={index}
-              email={data.email}
-              name={data.name}
-              salesAmount={data.salesAmount}
-            />
-          ))}
+        <CardContent>
+          <CashFlowDashboard />
         </CardContent>
       </section>
     </div>
   )
 }
+
+{/*<CardContent className="flex flex-col justify-between gap-4">*/}
+{/*  <section>*/}
+{/*    <p>Recent Sales</p>*/}
+{/*    <p className="text-sm text-gray-400">You have made 256 sales this month.</p>*/}
+{/*  </section>*/}
+{/*  {salesData.map((data, index) => (*/}
+{/*    <SalesCard*/}
+{/*      key={index}*/}
+{/*      email={data.email}*/}
+{/*      name={data.name}*/}
+{/*      salesAmount={data.salesAmount}*/}
+{/*    />*/}
+{/*  ))}*/}
+{/*</CardContent>*/}

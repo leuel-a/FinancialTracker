@@ -10,7 +10,9 @@ namespace ft.transaction_management.Application.Contracts.Persistence;
 public interface ITransactionsRepository : IGenericRepository<Transaction>
 {
     Task<int> CountTransactionsByCategory(int categoryId);
-    Task<IReadOnlyList<Transaction>> GetAllTransactionsWithCategory(IQueryable<Transaction> query, int pageSize, int currentPage);
+    Task<decimal> GetIncomeTotalForMonth(int month, int year);
+    Task<decimal> GetExpenseTotalForMonth(int month, int year);
     Task<Transaction> GetTransactionWithCategory(int transactionId);
     Task<IReadOnlyList<Transaction>> GetTransactionByCategory(int categoryId, int pageSize, int currentPage);
+    Task<IReadOnlyList<Transaction>> GetAllTransactionsWithCategory(IQueryable<Transaction> query, int pageSize, int currentPage);
 }

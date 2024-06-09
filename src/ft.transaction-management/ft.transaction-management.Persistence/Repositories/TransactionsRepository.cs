@@ -16,6 +16,13 @@ public class TransactionsRepository : GenericRepository<Transaction>, ITransacti
         _context = context;
     }
 
+    public async Task<decimal> GetExpenseTotalForMonth(int month, int year)
+    {
+        var expenseTotal = await _context.Transactions
+            .Where(t => t.Date.Month == month && t.Date.Year == year && t.Type == "Expense").SumAsync(t => t.Amount);
+        return expenseTotal;
+    }
+
     public async Task<Transaction> GetTransactionWithCategory(int transactionId)
     {
         return (await _context.Transactions.Include(t => t.Category)
@@ -34,8 +41,17 @@ public class TransactionsRepository : GenericRepository<Transaction>, ITransacti
         return await _context.Transactions.CountAsync(t => t.CategoryId == categoryId);
     }
 
-    public async Task<IReadOnlyList<Transaction>> GetAllTransactionsWithCategory(IQueryable<Transaction> query, int pageSize, int currentPage)
+    public async Task<decimal> GetIncomeTotalForMonth(int month, int year)
     {
-        return await query.Include(t => t.Category).AsNoTracking().Skip((currentPage - 1) * pageSize).Take(pageSize).ToListAsync();
+        var incomeTotal = await _context.Transactions
+            .Where(t => t.Date.Month == month && t.Date.Year == year && t.Type == "Income").SumAsync(t => t.Amount);
+        return incomeTotal;
+    }
+
+    public async Task<IReadOnlyList<Transaction>> GetAllTransactionsWithCategory(IQueryable<Transaction> query,
+        int pageSize, int currentPage)
+    {
+        return await query.Include(t => t.Category).AsNoTracking().Skip((currentPage - 1) * pageSize).Take(pageSize)
+            .ToListAsync();
     }
 }
