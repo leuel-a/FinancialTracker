@@ -5,7 +5,7 @@ export const months = ['January', 'February', 'March', 'April', 'May', 'June',
 
 export type Transaction = {
   id: number
-  date: Date
+  date: string 
   type: string
   amount: number
   status: string
@@ -15,8 +15,8 @@ export type Transaction = {
   quantity?: number
   unitPrice?: number
   accountNumber?: string
-  categoryId: number | null
-  category: Category | null
+  categoryId?: number | null
+  category?: Category | null
 }
 
 export type MonthlyTransactionSummary = {

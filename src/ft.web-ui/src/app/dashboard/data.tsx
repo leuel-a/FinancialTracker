@@ -1,15 +1,12 @@
 import {
   ArrowLeftRight,
-  LayoutDashboard,
   Calendar,
-  Activity,
-  ChevronRight,
-  User,
-  ChevronLeft,
-  Settings,
+  FileBarChart,
+  LayoutDashboard,
   LogOut,
   LucideProps,
-FileBarChart 
+  Settings,
+  User
 } from 'lucide-react'
 
 type Link = {
@@ -35,18 +32,7 @@ const topLinks: Link[] = [
     variant: 'ghost',
     href: '/dashboard/transactions'
   },
-  {
-    title: 'Calendar',
-    icon: Calendar,
-    variant: 'ghost',
-    href: '/dashboard/calendar'
-  },
-  {
-    title: 'Reports',
-    icon: FileBarChart,
-    variant: 'ghost',
-    href: '/dashboard/reports'
-  }
+ 
 ]
 
 const bottomLinks: Link[] = [
@@ -71,19 +57,7 @@ const adminTopLinks: Link[] = [
     variant: 'ghost',
     href: '/dashboard/transactions'
   },
-  {
-    title: 'Calendar',
-    icon: Calendar,
-    variant: 'ghost',
-    href: '/dashboard/calendar'
-  },
-  {
-    title: 'Reports',
-    icon: FileBarChart,
-    variant: 'ghost',
-    href: '/dashboard/reports'
-  },
-  {
+ {
     title: 'Employees',
     icon: User,
     variant: 'ghost',

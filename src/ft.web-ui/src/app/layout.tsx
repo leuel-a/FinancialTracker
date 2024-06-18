@@ -1,6 +1,7 @@
 import './globals.css'
 import '@mantine/core/styles.css'
 import '@mantine/dates/styles.css'
+import { Toaster } from '@/components/ui/toaster'
 import type { Metadata } from 'next'
 import ReduxProvider from './components/ReduxProvider'
 
@@ -32,6 +33,7 @@ export default function RootLayout({
         <ReduxProvider>
           <MantineProvider>{children}</MantineProvider>
         </ReduxProvider>
+        <Toaster />
       </body>
     </html>
   )

@@ -1,47 +1,39 @@
 'use client'
 
-import Link from 'next/link'
-import { Undo2 } from 'lucide-react'
-import PageTitle from '../../components/PageTitle'
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage
-} from '@/components/ui/form'
 import { z } from 'zod'
+import React from 'react'
+import Link from 'next/link'
+import { format } from 'date-fns'
+import { Undo2 } from 'lucide-react'
 import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import React, { ReactNode } from 'react'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
-import { Button } from '@/components/ui/button'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue
-} from '@/components/ui/select'
-import { useGetAllCategoriesQuery } from '@/features/categories/categoriesApi'
+import { useRouter } from 'next/navigation'
 import { Category } from '@/types/categories'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
+import { toast } from '@/components/ui/use-toast'
+import { Transaction } from '@/types/transaction'
+import PageTitle from '../../components/PageTitle'
+import { Textarea } from '@/components/ui/textarea'
+import { zodResolver } from '@hookform/resolvers/zod'
+import LoadingSpinner from '@/components/LoadingSpinner'
+import { useGetAllCategoriesQuery } from '@/features/categories/categoriesApi'
+import { useCreateTransactionMutation } from '@/features/transaction/transactionSlice'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 
 const newTransactionSchema = z.object({
   status: z.string({ required_error: 'Status is required' }),
   amount: z
-    .number({ required_error: 'Amount is required', message: 'Amount must be a number' })
-    .gt(1, 'Amount must be greater than 1.'),
+    .string({ required_error: 'Amount is required' }),
   type: z.string({ required_error: 'Type is required' }),
-  date: z.date({ required_error: 'Date is required' }),
+  date: z.string({ required_error: 'Date is required' }),
   accountNumber: z.string().optional(),
   description: z.string({ required_error: 'Description is required' }),
   numOfItems: z.number().optional(),
   costPerItem: z.number().optional(),
   paymentMethod: z.string().optional(),
   region: z.string().optional(),
-  categoryId: z.number().optional(),
+  category: z.string({ required_error: 'Category is required.' }),
   quantity: z.number().optional()
 })
 
@@ -49,7 +41,11 @@ export default function AddTransaction() {
   const form = useForm<z.infer<typeof newTransactionSchema>>({
     resolver: zodResolver(newTransactionSchema)
   })
+
+  const router = useRouter()
   const [categories, setCategories] = React.useState<Category[]>([])
+  const [createTransaction, results] = useCreateTransactionMutation()
+  const [selectedCategory, setSelectedCategory] = React.useState<number>()
   const { data, isLoading, isError } = useGetAllCategoriesQuery('')
 
   React.useEffect(() => {
@@ -58,8 +54,28 @@ export default function AddTransaction() {
     }
   }, [isLoading])
 
-  function onSubmit(values: z.infer<typeof newTransactionSchema>) {
-    console.log(values)
+  async function onSubmit(values: z.infer<typeof newTransactionSchema>) {
+    const { date, amount, category, ...rest } = values
+
+    const transaction: Partial<Transaction> = {
+      ...rest,
+      date: format(new Date(date), 'yyyy/MM/dd'),
+      amount: parseFloat(amount),
+      categoryId: selectedCategory
+    }
+
+    const result = await createTransaction(transaction)
+
+    if ('error' in result) {
+      console.log(result.error)
+    } else {
+      const { data } = result
+      toast({
+        title: 'Transaction created successfully.',
+        description: `Transaction with amount ${data.amount}`
+      })
+      return router.push('/dashboard/transactions')
+    }
   }
 
   return (
@@ -75,7 +91,9 @@ export default function AddTransaction() {
         </Link>
       </div>
       {isLoading ? (
-        <div></div>
+        <div className="h-full w-full">
+          <LoadingSpinner className="h-4 w-4" />
+        </div>
       ) : (
         <div className="mt-4 space-y-6">
           <Form {...form}>
@@ -108,7 +126,7 @@ export default function AddTransaction() {
                       <FormItem>
                         <FormLabel className="font-semibold">Amount</FormLabel>
                         <FormControl>
-                          <Input type={'number'} placeholder="123,455.45" />
+                          <Input type={'number'} placeholder="123,455.45" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -123,7 +141,7 @@ export default function AddTransaction() {
                       <FormItem>
                         <FormLabel className="font-semibold">Date</FormLabel>
                         <FormControl>
-                          <Input type={'date'} />
+                          <Input type={'date'} placeholder="Enter the date of transaction" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -151,8 +169,6 @@ export default function AddTransaction() {
                           <SelectItem value="Failed">Failed</SelectItem>
                           <SelectItem value="Pending">Pending</SelectItem>
                           <SelectItem value="Completed">Completed</SelectItem>
-                          <SelectItem value="Active">Active</SelectItem>
-                          <SelectItem value="Paused">Paused</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -189,12 +205,12 @@ export default function AddTransaction() {
                 />
                 <FormField
                   control={form.control}
-                  name="categoryId"
+                  name="category"
                   render={({ field }) => {
                     return (
                       <FormItem>
                         <FormItem className="font-semibold">Category</FormItem>
-                        <Select>
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
                           <FormControl>
                             <SelectTrigger>
                               <SelectValue
@@ -205,7 +221,10 @@ export default function AddTransaction() {
                           </FormControl>
                           <SelectContent>
                             {categories.map(category => (
-                              <SelectItem key={category.id} value={category.id}>
+                              <SelectItem onClick={() => {
+                                setSelectedCategory(category.id)
+                              }} key={category.id}
+                                          value={category.name}>
                                 {category.name}
                               </SelectItem>
                             ))}
@@ -295,8 +314,8 @@ export default function AddTransaction() {
                   }}
                 />
               </div>
-              <Button type={'submit'} className="w-full bg-zinc-800">
-                Submit
+              <Button disabled={isLoading} type={'submit'} className="w-full bg-zinc-800">
+                {isLoading ? <LoadingSpinner /> : 'Submit'}
               </Button>
             </form>
           </Form>

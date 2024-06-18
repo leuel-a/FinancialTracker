@@ -7,7 +7,6 @@ import { Bar, BarChart as BarGraph, Legend, ResponsiveContainer, Tooltip, XAxis,
 
 import { useGetTransactionSummaryForYearQuery } from '@/features/transaction/transactionSlice'
 
-
 export default function BarChart({}) {
   const { isLoading, isError, data: transactions } = useGetTransactionSummaryForYearQuery(2023)
   

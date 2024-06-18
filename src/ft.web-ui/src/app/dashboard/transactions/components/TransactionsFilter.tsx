@@ -52,7 +52,7 @@ export default function TransactionsFilter() {
     return router.push(`/dashboard/transactions?${newSearchParams.toString()}`)
   }
 
-  const { isLoading, isError, data } = useGetAllCategoriesQuery({})
+  const { isLoading, isError, data } = useGetAllCategoriesQuery("")
 
   const formattedMin = new Intl.NumberFormat('en-US', {
     style: 'currency',
