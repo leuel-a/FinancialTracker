@@ -15,6 +15,6 @@ public class DeleteEmployeeDtoValidator : AbstractValidator<DeleteEmployeeDto>
             {
                 var employee = await employeesRepository.GetByIdAsync(id);
                 return employee != null;
-            }).WithMessage(p => $"Employee with Id {p.Id}");
+            }).WithMessage(p => $"Employee with Id {p.Id} does not exist.");
     } 
 }

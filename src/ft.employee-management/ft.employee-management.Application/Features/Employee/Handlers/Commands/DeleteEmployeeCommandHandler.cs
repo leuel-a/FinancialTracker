@@ -1,26 +1,25 @@
-using FluentValidation;
+using MediatR;
+using ft.employee_management.Application.Responses;
 using ft.employee_management.Application.Contracts.Persistence;
 using ft.employee_management.Application.Dtos.Employee.Validators;
 using ft.employee_management.Application.Features.Employee.Requests.Commands;
-using ft.employee_management.Application.Responses;
-using MediatR;
 
 namespace ft.employee_management.Application.Features.Employee.Handlers.Commands;
 
 public class DeleteEmployeeCommandHandler : IRequestHandler<DeleteEmployeeCommand, BaseResponse>
 {
     private readonly IEmployeesRepository _employeesRepository;
-    
+
     public DeleteEmployeeCommandHandler(IEmployeesRepository employeesRepository)
     {
         _employeesRepository = employeesRepository;
     }
-    
+
     public async Task<BaseResponse> Handle(DeleteEmployeeCommand request, CancellationToken cancellationToken)
     {
         var response = new BaseResponse();
         var validator = new DeleteEmployeeDtoValidator(_employeesRepository);
-        var validationResult = await validator.ValidateAsync(request.DeleteEmployeeDto!);
+        var validationResult = await validator.ValidateAsync(request.DeleteEmployeeDto!, cancellationToken);
 
         if (validationResult.IsValid == false)
         {
@@ -41,7 +40,7 @@ public class DeleteEmployeeCommandHandler : IRequestHandler<DeleteEmployeeComman
         }
 
         response.Succeeded = true;
-        response.Message = "Employee deleted successfully.";
+        response.Message = $"Employee with Id {request.DeleteEmployeeDto.Id} has been successfully deleted.";
 
         return response;
     }

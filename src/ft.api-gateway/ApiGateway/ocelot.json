@@ -42,22 +42,6 @@
       "UpstreamHttpMethod": ["Post", "Get", "Delete", "Put"]
     },
     {
-      "DownstreamPathTemplate": "/api/employees/{everything}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5003
-        }
-      ],
-      "UpstreamPathTemplate": "/api/employees/{everything}",
-      "UpstreamHttpMethod": ["Post", "Get", "Delete", "Put"],
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": []
-      }
-    },
-    {
       "DownstreamPathTemplate": "/api/transactions/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -84,6 +68,23 @@
       ],
       "UpstreamPathTemplate": "/api/categories/{everything}",
       "UpstreamHttpMethod": ["Post", "Get", "Delete", "Put"]
+    },
+    {
+      "DownstreamPathTemplate": "/api/employees/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5020
+        }
+      ],
+      "UpstreamPathTemplate": "/api/employees/{everything}",
+      "UpstreamHttpMethod": [
+        "Post",
+        "Get",
+        "Delete",
+        "Put"
+      ]
     }
   ],
   "GlobalConfiguration": {

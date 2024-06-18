@@ -1,9 +1,13 @@
 export type Employee = {
   id: string
   firstName: string
-  middleName: string
   lastName: string
-  salary: number
-  type: string
+  dateOfBirth?: string
+  gender: string
   email: string
+  phoneNumber: string
+  type: string
+  hireDate: string
+  bonus: string,
+  salary: number
 }

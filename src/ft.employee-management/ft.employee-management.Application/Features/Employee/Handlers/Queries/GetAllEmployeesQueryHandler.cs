@@ -24,7 +24,7 @@ public class GetAllEmployeesQueryHandler : IRequestHandler<GetAllEmployeesQuery,
     {
         var response = new ReadResourceResponse<ReadEmployeeDto>();
         var validator = new GetAllEmployeesDtoValidator();
-        var validationResult = await validator.ValidateAsync(request.GetAllEmployeesDto!);
+        var validationResult = await validator.ValidateAsync(request.GetAllEmployeesDto!, cancellationToken);
 
         if (validationResult.IsValid == false)
         {
@@ -51,6 +51,7 @@ public class GetAllEmployeesQueryHandler : IRequestHandler<GetAllEmployeesQuery,
         response.NextPage = nextPage;
         response.PreviousPage = previousPage;
         response.PageSize = pageSize;
+        response.TotalPages = totalPages;
         response.TotalRecords = totalEmployees;
         response.Resources = _mapper.Map<IReadOnlyList<ReadEmployeeDto>>(employees);
         return response;

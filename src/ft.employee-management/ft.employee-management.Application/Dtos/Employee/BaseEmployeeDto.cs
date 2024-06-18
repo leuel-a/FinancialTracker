@@ -13,5 +13,5 @@ public class BaseEmployeeDto
     public string? PhoneNumber { get; set; }
     public decimal? Bonus { get; set; }
     public decimal Salary { get; set; }
-    public EmployeeType EmployeeType { get; set; }
+    public string? Type { get; set; }
 }

@@ -46,6 +46,7 @@ public class
         }
 
         response.Succeeded = true;
+        response.Id = employee.Id; // This is to use it later on in the response when a new employee is created.
         response.Message = "Employee created successfully.";
         response.Resource = _mapper.Map<ReadEmployeeDto>(employee);
         return response;

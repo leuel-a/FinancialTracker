@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 @font-face {
   src: url('/fonts/Poppins/Poppins-Regular.ttf') format('truetype');
   font-family: 'Poppins';

@@ -1,7 +1,7 @@
+import Link from 'next/link'
 import PageTitle from '../../components/PageTitle'
 import { Undo2 } from 'lucide-react'
-import Link from 'next/link'
-import NewEmployeeForm from './components/NewEmployeesForm'
+import EmployeeForm from './components/EmployeeForm'
 
 export default function Page() {
   return (
@@ -16,7 +16,7 @@ export default function Page() {
           <p>Back to Employees</p>
         </Link>
       </div>
-      <NewEmployeeForm />
+      <EmployeeForm />
     </div>
   )
 }

@@ -3,7 +3,7 @@ using ft.employee_management.Application.Contracts.Persistence;
 
 namespace ft.employee_management.Application.Dtos.Employee.Validators;
 
-public class UpdateEmployeeDtoValidator : AbstractValidator<UpdateEmployeeDto>
+public class UpdateEmployeeDtoValidator : BaseEmployeeDtoValidator<UpdateEmployeeDto> 
 {
     public UpdateEmployeeDtoValidator(IEmployeesRepository employeesRepository)
     {

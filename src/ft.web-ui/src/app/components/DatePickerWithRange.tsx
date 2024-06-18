@@ -19,7 +19,7 @@ export default function DatePickerWithRange({ className }: React.HTMLAttributes<
     from: undefined,
     to: undefined
   })
-
+  
   const handleClearDate = () => {
     setDate({ from: undefined, to: undefined })
     const values = Object.fromEntries(searchParams.entries())

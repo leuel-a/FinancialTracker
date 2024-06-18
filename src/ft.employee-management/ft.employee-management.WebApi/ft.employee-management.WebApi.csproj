@@ -8,11 +8,14 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
+        <PackageReference Include="MediatR" Version="11.1.0" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Controllers\" />
+      <ProjectReference Include="..\ft.employee-management.Application\ft.employee-management.Application.csproj" />
+      <ProjectReference Include="..\ft.employee-management.Domain\ft.employee-management.Domain.csproj" />
+      <ProjectReference Include="..\ft.employee-management.Persistence\ft.employee-management.Persistence.csproj" />
     </ItemGroup>
 
 </Project>
